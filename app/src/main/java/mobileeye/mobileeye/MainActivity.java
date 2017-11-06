@@ -13,8 +13,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int NAVIGATION = 1;
     private static final int OBJECT_RECOGNITION = 2;
 
-    String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja"};
-    String[] selectedOptionInfoList = {"Wybrano opcję: notatki głosowe", "Wybrano opcję: rozpoznawanie obiektów i czytanie tekstu",
+    private String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja"};
+
+    private String[] selectedOptionInfoList = {"Wybrano opcję: notatki głosowe", "Wybrano opcję: rozpoznawanie obiektów i czytanie tekstu",
             "Wybrano opcję: nawigacja"};
 
     @Override
@@ -31,12 +32,19 @@ public class MainActivity extends AppCompatActivity {
                 case VOICE_NOTES:
                     Intent voiceNotesIntent = new Intent(this, VoiceNotesActivity.class);
                     startActivity(voiceNotesIntent);
+                    break;
                 case NAVIGATION:
                     Intent navigationIntent = new Intent(this, NavigationActivity.class);
                     startActivity(navigationIntent);
+                    break;
                 case OBJECT_RECOGNITION:
                     Intent objectRecognitionIntent = new Intent(this, ObjectRecognitionActivity.class);
                     startActivity(objectRecognitionIntent);
+                    break;
+                default:
+                    Intent voiceNotesIntent1 = new Intent(this, VoiceNotesActivity.class);
+                    startActivity(voiceNotesIntent1);
+                    break;
             }
         }
     }
@@ -45,11 +53,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         Intent optionMenuIntent = new Intent(this, MenuActivity.class);
         optionMenuIntent.putExtra("optionList", optionList);

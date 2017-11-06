@@ -14,19 +14,17 @@ public class VoiceNotesActivity extends AppCompatActivity {
     private static final int LISTEN_VOICENOTE = 2;
 
     private String[] optionList = {"Dodaj nową notatkę", "Usuń istniejącą notatkę", "Przeglądaj swoje notatki"};
+    private String[] selectedOptionInfoList = {"Wybrano opcję: dodaj nową notatkę", "Wybrano opcję: usuń istniejącą notatkę",
+            "Wybrano opcję: przeglądaj swoje notatki"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice_notes);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         Intent optionMenuIntent = new Intent(this, MenuActivity.class);
         optionMenuIntent.putExtra("optionList", optionList);
+        optionMenuIntent.putExtra("selectedOptionInfoList", selectedOptionInfoList);
         startActivityForResult(optionMenuIntent, OPTION_MENU_RESULT);
     }
 
@@ -42,11 +40,13 @@ public class VoiceNotesActivity extends AppCompatActivity {
 
             switch (selectedOption) {
                 case ADD_VOICENOTE:
-                    ;
+                    break;
                 case DELETE_VOICENOTE:
-                    ;
+                    break;
                 case LISTEN_VOICENOTE:
-                    ;
+                    break;
+                default:
+                    break;
             }
         }
     }
