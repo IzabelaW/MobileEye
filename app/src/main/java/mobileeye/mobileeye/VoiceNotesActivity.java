@@ -1,12 +1,8 @@
 package mobileeye.mobileeye;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.os.Bundle;
 import android.widget.Toast;
 
 public class VoiceNotesActivity extends AppCompatActivity {
@@ -23,18 +19,6 @@ public class VoiceNotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice_notes);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -58,8 +42,7 @@ public class VoiceNotesActivity extends AppCompatActivity {
 
             switch (selectedOption) {
                 case ADD_VOICENOTE:
-                    Intent voiceNotesIntent = new Intent(this, VoiceNotesActivity.class);
-                    startActivity(voiceNotesIntent);
+                    ;
                 case DELETE_VOICENOTE:
                     ;
                 case LISTEN_VOICENOTE:
@@ -67,5 +50,4 @@ public class VoiceNotesActivity extends AppCompatActivity {
             }
         }
     }
-
 }

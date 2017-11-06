@@ -30,9 +30,11 @@ public class MainActivity extends AppCompatActivity {
                     Intent voiceNotesIntent = new Intent(this, VoiceNotesActivity.class);
                     startActivity(voiceNotesIntent);
                 case NAVIGATION:
-                    ;
+                    Intent navigationIntent = new Intent(this, NavigationActivity.class);
+                    startActivity(navigationIntent);
                 case OBJECT_RECOGNITION:
-                    ;
+                    Intent objectRecognitionIntent = new Intent(this, ObjectRecognitionActivity.class);
+                    startActivity(objectRecognitionIntent);
             }
         }
     }
