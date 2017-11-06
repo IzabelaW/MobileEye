@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int OBJECT_RECOGNITION = 2;
 
     String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja"};
+    String[] selectedOptionInfoList = {"Wybrano opcję: notatki głosowe", "Wybrano opcję: rozpoznawanie obiektów i czytanie tekstu",
+            "Wybrano opcję: nawigacja"};
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent optionMenuIntent = new Intent(this, MenuActivity.class);
         optionMenuIntent.putExtra("optionList", optionList);
+        optionMenuIntent.putExtra("selectedOptionInfoList", selectedOptionInfoList);
         startActivityForResult(optionMenuIntent, OPTION_MENU_RESULT);
     }
 }
