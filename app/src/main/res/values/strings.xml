@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MobileEye</string>
+    <string name="title_activity_voice_notes">VoiceNotesActivity</string>
 </resources>

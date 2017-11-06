@@ -16,7 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".MenuActivity" />
+
+        <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+        <activity
+            android:name=".VoiceNotesActivity"
+            android:label="@string/title_activity_voice_notes"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mobileeye.mobileeye.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

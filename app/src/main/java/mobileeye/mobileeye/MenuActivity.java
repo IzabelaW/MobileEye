@@ -33,6 +33,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnLongClickL
 
 
     public void optionClick(View view) {
+
         currentOption++;
         if(currentOption >= optionList.length) {
             currentOption = 0;
