@@ -1,4 +1,4 @@
-package mobileeye.mobileeye.DataBase;
+package mobileeye.mobileeye.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -70,7 +70,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(VOICENOTE_KEY_TITLE, voiceNote.getTitle()); // Voice note title 
         values.put(VOICENOTE_KEY_DIRECTORY, voiceNote.getDirectory()); // Voice note content 
-        // Inserting Row 
+        // inserting a row 
         sqLiteDatabase.insert(TABLE_VOICE_NOTES, null, values);
         sqLiteDatabase.close(); // Closing database connection 
     }

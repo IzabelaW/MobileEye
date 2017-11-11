@@ -7,7 +7,7 @@ import android.util.Log;
 
 import java.util.Locale;
 
-import mobileeye.mobileeye.Activities.MenuActivity;
+import mobileeye.mobileeye.activity.MenuActivity;
 
 /**
  * Created by Tomasz on 02.11.2017.

@@ -1,10 +1,13 @@
-package mobileeye.mobileeye.Activities;
+package mobileeye.mobileeye.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
+import mobileeye.mobileeye.database.DBHandler;
+import mobileeye.mobileeye.FavouriteNumber;
 import mobileeye.mobileeye.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +58,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Testing DataBase
+        DBHandler dbHandler = new DBHandler(this);
+
+        //Inserting FavouriteNumbers
+        Log.d("Inserting: ", "Inserting new numbers...");
+        dbHandler.addNewFavouriteNumber(new FavouriteNumber(1,"600336250"));
+        dbHandler.addNewFavouriteNumber(new FavouriteNumber(2,"662686854"));
+        dbHandler.addNewFavouriteNumber(new FavouriteNumber(3,"517105496"));
+        dbHandler.addNewFavouriteNumber(new FavouriteNumber(4,"660345404"));
+
+        Log.d("Reading: ", "Reading all numbers...");
+        String log;
+        FavouriteNumber favouriteNumber;
+        for(int i = 1; i <= 4; i++){
+            favouriteNumber = dbHandler.getFavouriteNumber(i);
+            log = "Id: " + favouriteNumber.getId() + ", Number: " + favouriteNumber.getContent();
+            Log.d("FAVOURITE NUMBER: ", log);
+        }
+
 
         Intent optionMenuIntent = new Intent(this, MenuActivity.class);
         optionMenuIntent.putExtra("optionList", optionList);
