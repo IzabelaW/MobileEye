@@ -1,4 +1,4 @@
-package mobileeye.mobileeye;
+package mobileeye.mobileeye.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import mobileeye.mobileeye.MenuDisplayer;
+import mobileeye.mobileeye.R;
 
 public class MenuActivity extends AppCompatActivity implements View.OnLongClickListener {
 

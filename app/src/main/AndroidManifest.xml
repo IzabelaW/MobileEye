@@ -9,20 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:content=".Activities.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:content="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:content="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity" />
+        <activity android:content=".Activities.MenuActivity" />
 
-        <uses-permission android:name="android.permission.RECORD_AUDIO" />
+        <uses-permission android:content="android.permission.RECORD_AUDIO" />
 
-        <activity android:name=".NavigationActivity" />
-        <activity android:name=".VoiceNotesActivity" />
-        <activity android:name=".ObjectRecognitionActivity"></activity>
+        <activity android:content=".Activities.NavigationActivity" />
+        <activity android:content=".Activities.VoiceNotesActivity" />
+        <activity android:content=".Activities.ObjectRecognitionActivity"></activity>
     </application>
 
 </manifest>

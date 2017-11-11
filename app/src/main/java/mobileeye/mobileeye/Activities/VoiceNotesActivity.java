@@ -1,9 +1,15 @@
-package mobileeye.mobileeye;
+package mobileeye.mobileeye.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import mobileeye.mobileeye.R;
+
+/**
+ * Created by izabelawojciak on 06.11.2017.
+ */
 
 public class VoiceNotesActivity extends AppCompatActivity {
 

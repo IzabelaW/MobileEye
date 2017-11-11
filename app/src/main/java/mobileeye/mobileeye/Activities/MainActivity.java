@@ -1,9 +1,11 @@
-package mobileeye.mobileeye;
+package mobileeye.mobileeye.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
+
+import mobileeye.mobileeye.R;
 
 public class MainActivity extends AppCompatActivity {
 

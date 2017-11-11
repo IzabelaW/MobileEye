@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mobileeye.mobileeye.NavigationActivity">
+    tools:context="mobileeye.mobileeye.Activities.NavigationActivity">
 
 </android.support.constraint.ConstraintLayout>
