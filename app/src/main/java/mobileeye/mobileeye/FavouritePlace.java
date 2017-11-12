@@ -7,26 +7,32 @@ package mobileeye.mobileeye;
 public class FavouritePlace {
 
     private int id;
-    private String content; // name
+    private String placeName;
+    private String placeAddress;
 
-    public FavouritePlace(int id, String name){
+    public FavouritePlace(int id, String placeName, String placeAddress){
         this.id = id;
-        this.content = name;
+        this.placeName = placeName;
+        this.placeAddress = placeAddress;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getContent() {
-        return content;
+    public String getPlaceName() {
+        return placeName;
     }
+
+    public String getPlaceAddress() { return placeAddress; }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
+
+    public void setPlaceAddress(String placeAddress) { this.placeAddress = placeAddress; }
 }

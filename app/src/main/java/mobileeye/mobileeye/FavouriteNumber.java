@@ -1,7 +1,5 @@
 package mobileeye.mobileeye;
 
-import android.support.annotation.Nullable;
-
 /**
  * Created by izabelawojciak on 11.11.2017.
  */
@@ -9,26 +7,32 @@ import android.support.annotation.Nullable;
 public class FavouriteNumber {
 
     private int id;
-    private String content; // phone number
+    private String contactNumber; // phone number
+    private String contactName;
 
-    public FavouriteNumber(@Nullable int id, String content){
+    public FavouriteNumber(int id, String contactName, String contactNumber){
         this.id = id;
-        this.content = content;
+        this.contactName = contactName;
+        this.contactNumber = contactNumber;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getContent() {
-        return content;
+    public String getContactNumber() {
+        return contactNumber;
     }
+
+    public String getContactName() { return contactName; }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
+
+    public void setContactName(String contactName) { this.contactName =contactName; }
 }
