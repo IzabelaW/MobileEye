@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int OPTION_MENU_RESULT = 1;
 
     private static final int VOICE_NOTES = 0;
-    private static final int NAVIGATION = 1;
-    private static final int OBJECT_RECOGNITION = 2;
+    private static final int OBJECT_RECOGNITION = 1;
+    private static final int NAVIGATION = 2;
 
     private String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja"};
 
@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
                     Intent voiceNotesIntent = new Intent(this, VoiceNotesActivity.class);
                     startActivity(voiceNotesIntent);
                     break;
-                case NAVIGATION:
-                    Intent navigationIntent = new Intent(this, NavigationActivity.class);
-                    startActivity(navigationIntent);
-                    break;
                 case OBJECT_RECOGNITION:
                     Intent objectRecognitionIntent = new Intent(this, ObjectRecognitionActivity.class);
                     startActivity(objectRecognitionIntent);
+                    break;
+                case NAVIGATION:
+                    Intent navigationIntent = new Intent(this, NavigationActivity.class);
+                    startActivity(navigationIntent);
                     break;
                 default:
                     Intent voiceNotesIntent1 = new Intent(this, VoiceNotesActivity.class);
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Reading: ", "Reading all numbers...");
         String log2;
         FavouritePlace favouritePlace;
-        for(int i = 1; i <= dbHandler.getFavouritePlacesCount(); i++){
+        for(int i = 1; i <= 0; i++){
             favouritePlace = dbHandler.getFavouritePlace(i);
             log2 = "Id: " + favouritePlace.getId() + ", Place name: " + favouritePlace.getPlaceName() + ", Place address: " + favouritePlace.getPlaceAddress();
             Log.d("FAVOURITE PLACE: ", log2);
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Reading: ", "Reading all voice notes...");
         String log3;
         VoiceNote voiceNote;
-        for(int i = 1; i <= dbHandler.getVoiceNotesCount(); i++){
+        for(int i = 1; i <= 0; i++){
             voiceNote = dbHandler.getVoiceNote(i);
             log3 = "Id: " + voiceNote.getId() + ", Title: " + voiceNote.getTitle() + ", Directory: " + voiceNote.getDirectory();
             Log.d("VOICE NOTE: ", log3);
