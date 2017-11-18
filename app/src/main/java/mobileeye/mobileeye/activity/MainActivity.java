@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int OPTION_MENU_RESULT = 1;
 
     private static final int VOICE_NOTES = 0;
-    private static final int NAVIGATION = 1;
-    private static final int OBJECT_RECOGNITION = 2;
+    private static final int OBJECT_RECOGNITION = 1;
+    private static final int NAVIGATION = 2;
 
     private String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja"};
 
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         VoiceNote voiceNote;
         for(int i = 1; i <= dbHandler.getVoiceNotesCount(); i++){
             voiceNote = dbHandler.getVoiceNote(i);
-            log3 = "Id: " + voiceNote.getId() + ", Title: " + voiceNote.getTitle() + ", Directory: " + voiceNote.getDirectory();
+            log3 = "Id: " + voiceNote.getId() + ", Title: " + voiceNote.getTitleDirectory() + ", Directory: " + voiceNote.getContentDirectory();
             Log.d("VOICE NOTE: ", log3);
         }
         //************************************************************

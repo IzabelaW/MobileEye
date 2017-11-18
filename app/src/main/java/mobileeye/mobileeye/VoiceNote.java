@@ -7,37 +7,37 @@ package mobileeye.mobileeye;
 public class VoiceNote {
 
     private int id;
-    private String title;
-    private String directory;
+    private String titleDirectory;
+    private String contentDirectory;
 
     public VoiceNote(int id, String title, String directory){
         this.id = id;
-        this.title = title;
-        this.directory = directory;
+        this.titleDirectory = title;
+        this.contentDirectory = directory;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleDirectory() {
+        return titleDirectory;
     }
 
-    public String getDirectory() {
-        return directory;
+    public String getContentDirectory() {
+        return contentDirectory;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleDirectory(String titleDirectory) {
+        this.titleDirectory = titleDirectory;
     }
 
-    public void setDirectory(String directory) {
-        this.directory = directory;
+    public void setContentDirectory(String contentDirectory) {
+        this.contentDirectory = contentDirectory;
     }
 
 
