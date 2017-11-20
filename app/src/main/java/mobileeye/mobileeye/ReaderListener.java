@@ -5,6 +5,5 @@ package mobileeye.mobileeye;
  */
 
 public interface ReaderListener {
-
     void onReadingCompleted();
 }

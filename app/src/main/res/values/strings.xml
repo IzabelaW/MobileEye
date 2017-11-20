@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MobileEye</string>
     <string name="title_activity_voice_notes">VoiceNotesActivity</string>
+    <string name="google_maps_key">AIzaSyD86AS1FJtc6HSXipD3xLuhQiNJI718vZ8</string>
 </resources>

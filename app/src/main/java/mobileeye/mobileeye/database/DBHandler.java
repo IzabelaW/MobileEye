@@ -102,12 +102,6 @@ public class DBHandler extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
-    public void deleteAllVoiceNotes() {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.execSQL("DELETE * FROM " + TABLE_VOICE_NOTES);
-        sqLiteDatabase.close();
-    }
-
     public ArrayList<VoiceNote> getAllVoiceNotes() {
         ArrayList<VoiceNote> voiceNotesList = new ArrayList<VoiceNote>();
         // Select All Query
