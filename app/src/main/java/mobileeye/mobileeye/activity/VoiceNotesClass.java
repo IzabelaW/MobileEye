@@ -26,10 +26,7 @@ public class VoiceNotesClass implements OptionsSelection{
     @Override
     public void initialize() {
         OptionsClass.initializeOptions(optionList, selectedOptionInfoList, this);
-
     }
-
-
 
    public void optionSelected(int selectedOption) {
 

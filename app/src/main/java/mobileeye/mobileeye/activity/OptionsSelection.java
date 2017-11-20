@@ -5,4 +5,7 @@ package mobileeye.mobileeye.activity;
  */
 
 public interface OptionsSelection {
+    void optionSelected(int optionNumber);
+    void initialize();
+    //void onSwipeBack();
 }

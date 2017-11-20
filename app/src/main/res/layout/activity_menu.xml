@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="mobileeye.mobileeye.activity.MenuActivity">
+    android:layout_height="match_parent">
 
 
     <TextView
@@ -15,7 +14,6 @@
         android:gravity="center"
         android:layout_weight="1"
         android:text="Displayed text"
-        android:onClick="optionClick"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 </LinearLayout>

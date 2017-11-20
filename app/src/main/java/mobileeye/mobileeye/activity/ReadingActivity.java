@@ -5,4 +5,5 @@ package mobileeye.mobileeye.activity;
  */
 
 public class ReadingActivity {
+
 }

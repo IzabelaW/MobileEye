@@ -7,8 +7,6 @@ import android.util.Log;
 
 import java.util.Locale;
 
-import mobileeye.mobileeye.activity.MenuActivity;
-
 /**
  * Created by Tomasz on 02.11.2017.
  */
@@ -28,12 +26,6 @@ public class MenuDisplayer  implements TextToSpeech.OnInitListener {
 
     public void display(String option){
         tts.speak(option, TextToSpeech.QUEUE_FLUSH, null);
-    }
-
-    public void show(Context context) {
-        Intent intent = new Intent(context, MenuActivity.class);
-        intent.putExtra("optionList", optionList);
-        context.startActivity(intent);
     }
 
     @Override

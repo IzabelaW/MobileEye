@@ -16,11 +16,6 @@ public class NavigationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-
-//        Intent optionMenuIntent = new Intent(this, MenuActivity.class);
-//        optionMenuIntent.putExtra("optionList", optionList);
-//        optionMenuIntent.putExtra("selectedOptionInfoList", selectedOptionInfoList);
-//        startActivityForResult(optionMenuIntent, OPTION_MENU_RESULT);
     }
 
     public void onClick(View view){
