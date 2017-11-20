@@ -6,9 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 import mobileeye.mobileeye.FavouriteNumber;
 import mobileeye.mobileeye.FavouritePlace;
-import mobileeye.mobileeye.VoiceNote;
+import mobileeye.mobileeye.VoiceNotes.VoiceNote;
 
 /**
  * Created by izabelawojciak on 11.11.2017.
@@ -25,8 +27,8 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String TABLE_VOICE_NOTES = "VoiceNotes";
     //Voice notes table columns names
     private static final String VOICENOTE_KEY_ID = "id";
-    private static final String VOICENOTE_KEY_TITLE = "title";
-    private static final String VOICENOTE_KEY_DIRECTORY = "directory";
+    private static final String VOICENOTE_KEY_TITLE_DIRECTORY = "titleDirectory";
+    private static final String VOICENOTE_KEY_CONTENT_DIRECTORY = "contentDirectory";
 
     // Favourite numbers table name
     private static final String TABLE_FAVOURITE_NUMBERS = "FavouriteNumbers";
@@ -48,9 +50,9 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String CREATE_VOICENOTES_TABLE = "CREATE TABLE " + TABLE_VOICE_NOTES + " ( " + VOICENOTE_KEY_ID + " INTEGER PRIMARY KEY, " + VOICENOTE_KEY_TITLE + " TEXT, " + VOICENOTE_KEY_DIRECTORY + " TEXT " + ")";
-        String CREATE_FAVOURITENUMBERS_TABLE = "CREATE TABLE " + TABLE_FAVOURITE_NUMBERS + " ( " + FAV_NUMBER_KEY_ID + " INTEGER PRIMARY KEY, " + FAV_NUMBER_KEY_CONTACTNAME + " TEXT, " + FAV_NUMBER_KEY_CONTACTNUMBER + " TEXT " + ")";
-        String CREATE_FAVOURITEPLACES_TABLE = "CREATE TABLE " + TABLE_FAVOURITE_PLACES + " ( " + FAV_PLACE_KEY_ID + " INTEGER PRIMARY KEY, " + FAV_PLACE_KEY_PLACENAME + " TEXT, " + FAV_PLACE_KEY_PLACEADDRESS + " TEXT " + ")";
+        String CREATE_VOICENOTES_TABLE = "CREATE TABLE " + TABLE_VOICE_NOTES + " ( " + VOICENOTE_KEY_ID + " INTEGER, " + VOICENOTE_KEY_TITLE_DIRECTORY + " TEXT, " + VOICENOTE_KEY_CONTENT_DIRECTORY + " TEXT " + ")";
+        String CREATE_FAVOURITENUMBERS_TABLE = "CREATE TABLE " + TABLE_FAVOURITE_NUMBERS + " ( " + FAV_NUMBER_KEY_ID + " INTEGER, " + FAV_NUMBER_KEY_CONTACTNAME + " TEXT, " + FAV_NUMBER_KEY_CONTACTNUMBER + " TEXT " + ")";
+        String CREATE_FAVOURITEPLACES_TABLE = "CREATE TABLE " + TABLE_FAVOURITE_PLACES + " ( " + FAV_PLACE_KEY_ID + " INTEGER, " + FAV_PLACE_KEY_PLACENAME + " TEXT, " + FAV_PLACE_KEY_PLACEADDRESS + " TEXT " + ")";
 
         sqLiteDatabase.execSQL(CREATE_VOICENOTES_TABLE);
         sqLiteDatabase.execSQL(CREATE_FAVOURITENUMBERS_TABLE);
@@ -70,8 +72,9 @@ public class DBHandler extends SQLiteOpenHelper {
     public void addNewVoiceNote(VoiceNote voiceNote) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(VOICENOTE_KEY_TITLE, voiceNote.getTitle()); // Voice note title 
-        values.put(VOICENOTE_KEY_DIRECTORY, voiceNote.getDirectory()); // Voice note content 
+        values.put(VOICENOTE_KEY_ID, voiceNote.getId());
+        values.put(VOICENOTE_KEY_TITLE_DIRECTORY, voiceNote.getTitleDirectory()); // Voice note title 
+        values.put(VOICENOTE_KEY_CONTENT_DIRECTORY, voiceNote.getContentDirectory()); // Voice note content 
         // inserting a row 
         sqLiteDatabase.insert(TABLE_VOICE_NOTES, null, values);
         sqLiteDatabase.close(); // Closing database connection 
@@ -79,7 +82,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public VoiceNote getVoiceNote(int id) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query(TABLE_VOICE_NOTES, new String[]{VOICENOTE_KEY_ID, VOICENOTE_KEY_TITLE, VOICENOTE_KEY_DIRECTORY}, VOICENOTE_KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor = sqLiteDatabase.query(TABLE_VOICE_NOTES, new String[]{VOICENOTE_KEY_ID, VOICENOTE_KEY_TITLE_DIRECTORY, VOICENOTE_KEY_CONTENT_DIRECTORY}, VOICENOTE_KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
         VoiceNote voiceNote = new VoiceNote(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
@@ -87,18 +90,44 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void deleteVoiceNote(VoiceNote voiceNote) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_VOICE_NOTES, VOICENOTE_KEY_ID + "=?", new String[]{String.valueOf(voiceNote.getId())});
-        db.close();
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(TABLE_VOICE_NOTES, VOICENOTE_KEY_ID + "=?", new String[]{String.valueOf(voiceNote.getId())});
+        sqLiteDatabase.execSQL("UPDATE " + TABLE_VOICE_NOTES + " SET id = id - 1" + " WHERE id > " + voiceNote.getId());
+        sqLiteDatabase.close();
+    }
+
+    public void deleteAllVoiceNotes() {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("DELETE * FROM " + TABLE_VOICE_NOTES);
+        sqLiteDatabase.close();
+    }
+
+    public ArrayList<VoiceNote> getAllVoiceNotes() {
+        ArrayList<VoiceNote> voiceNotesList = new ArrayList<VoiceNote>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_VOICE_NOTES;
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                VoiceNote voiceNote = new VoiceNote(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2));
+                // Adding voice note to list
+                voiceNotesList.add(voiceNote);
+            } while (cursor.moveToNext());
+        }
+        // return voice notes list
+        return voiceNotesList;
     }
 
     public int getVoiceNotesCount() {
         int count = 0;
         String countQuery = "SELECT * FROM " + TABLE_VOICE_NOTES;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(countQuery, null);
         count = cursor.getCount();
         cursor.close();
+        sqLiteDatabase.close();
         // return count
         return count;
     }
@@ -106,6 +135,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void addNewFavouriteNumber(FavouriteNumber favouriteNumber) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(FAV_NUMBER_KEY_ID, favouriteNumber.getId());
         values.put(FAV_NUMBER_KEY_CONTACTNAME, favouriteNumber.getContactName()); // Favourite contact name
         values.put(FAV_NUMBER_KEY_CONTACTNUMBER, favouriteNumber.getContactNumber()); // Favourite contact phone number
         // inserting a row 
@@ -123,18 +153,44 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void deleteFavouriteNumber(FavouriteNumber favouriteNumber) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_FAVOURITE_NUMBERS, FAV_NUMBER_KEY_ID + "=?", new String[]{String.valueOf(favouriteNumber.getId())});
-        db.close();
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(TABLE_FAVOURITE_NUMBERS, FAV_NUMBER_KEY_ID + "=?", new String[]{String.valueOf(favouriteNumber.getId())});
+        sqLiteDatabase.execSQL("UPDATE " + TABLE_FAVOURITE_NUMBERS + " SET id = id - 1" + " WHERE id > " + favouriteNumber.getId());
+        sqLiteDatabase.close();
+    }
+
+    public void deleteAllFavouriteNumbers() {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("DELETE * FROM " + TABLE_FAVOURITE_NUMBERS);
+        sqLiteDatabase.close();
+    }
+
+    public ArrayList<FavouriteNumber> getAllFavouriteNumbers() {
+        ArrayList<FavouriteNumber> favouriteNumberList = new ArrayList<FavouriteNumber>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_FAVOURITE_NUMBERS;
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                FavouriteNumber favouriteNumber = new FavouriteNumber(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2));
+                // Adding favourite number to list
+                favouriteNumberList.add(favouriteNumber);
+            } while (cursor.moveToNext());
+        }
+        // return favourite numbers list
+        return favouriteNumberList;
     }
 
     public int getFavouriteNumbersCount() {
         int count = 0;
         String countQuery = "SELECT * FROM " + TABLE_FAVOURITE_NUMBERS;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(countQuery, null);
         count = cursor.getCount();
         cursor.close();
+        sqLiteDatabase.close();
         // return count
         return count;
     }
@@ -142,6 +198,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void addNewFavouritePlace(FavouritePlace favouritePlace) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(FAV_PLACE_KEY_ID, favouritePlace.getId());
         values.put(FAV_PLACE_KEY_PLACENAME, favouritePlace.getPlaceName()); // Favourite place name
         values.put(FAV_PLACE_KEY_PLACEADDRESS, favouritePlace.getPlaceAddress()); // Favourite place address
         // Inserting Row 
@@ -159,18 +216,44 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void deleteFavouritePlace(FavouritePlace favouritePlace) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_FAVOURITE_PLACES, FAV_PLACE_KEY_ID + "=?", new String[]{String.valueOf(favouritePlace.getId())});
-        db.close();
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(TABLE_FAVOURITE_PLACES, FAV_PLACE_KEY_ID + "=?", new String[]{String.valueOf(favouritePlace.getId())});
+        sqLiteDatabase.execSQL("UPDATE " + TABLE_FAVOURITE_PLACES + " SET id = id - 1" + " WHERE id > " + favouritePlace.getId());
+        sqLiteDatabase.close();
+    }
+
+    public void deleteAllFavouritePlaces() {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("DELETE * FROM " + TABLE_FAVOURITE_PLACES);
+        sqLiteDatabase.close();
+    }
+
+    public ArrayList<FavouritePlace> getAllFavouritePlaces() {
+        ArrayList<FavouritePlace> favouritePlacesList = new ArrayList<FavouritePlace>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_FAVOURITE_PLACES;
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                FavouritePlace favouritePlace = new FavouritePlace(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2));
+                // Adding favourite place to list
+                favouritePlacesList.add(favouritePlace);
+            } while (cursor.moveToNext());
+        }
+        // return voice notes list
+        return favouritePlacesList;
     }
 
     public int getFavouritePlacesCount() {
         int count = 0;
         String countQuery = "SELECT * FROM " + TABLE_FAVOURITE_PLACES;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(countQuery, null);
         count = cursor.getCount();
         cursor.close();
+        sqLiteDatabase.close();
         // return count
         return count;
     }

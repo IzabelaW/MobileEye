@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mobileeye.mobileeye">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,6 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,9 +38,13 @@
         </activity>
         <activity android:name=".activity.MenuActivity" />
         <activity android:name=".activity.NavigationActivity" />
-        <activity android:name=".activity.VoiceNotesActivity" />
+        <activity android:name=".VoiceNotes.VoiceNotesActivity" />
         <activity android:name=".activity.ObjectRecognitionActivity" />
         <activity android:name=".activity.Camera_capture"></activity>
+        <service  android:name=".MyService" />
+        <activity android:name=".VoiceNotes.AddingNewNoteActivity" />
+        <activity android:name=".VoiceNotes.ListeningNoteActivity" />
+        <activity android:name=".VoiceNotes.DeletingNoteActivity"></activity>
     </application>
 
 </manifest>
