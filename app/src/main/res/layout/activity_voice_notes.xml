@@ -4,6 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mobileeye.mobileeye.activity.VoiceNotesActivity">
+    tools:context=".VoiceNotes.VoiceNotesActivity">
+
+    <TextView
+        android:id="@+id/voiceNotesInfoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="Tryb: notatki głosowe"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 </android.support.constraint.ConstraintLayout>

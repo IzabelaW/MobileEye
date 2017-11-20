@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mobileeye.mobileeye">
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -18,8 +22,11 @@
         </activity>
         <activity android:name=".activity.MenuActivity" />
         <activity android:name=".activity.NavigationActivity" />
-        <activity android:name=".activity.VoiceNotesActivity" />
+        <activity android:name=".VoiceNotes.VoiceNotesActivity" />
         <activity android:name=".activity.ObjectRecognitionActivity" />
+        <activity android:name=".VoiceNotes.AddingNewNoteActivity" />
+        <activity android:name=".VoiceNotes.ListeningNoteActivity" />
+        <activity android:name=".VoiceNotes.DeletingNoteActivity"></activity>
     </application>
 
 </manifest>

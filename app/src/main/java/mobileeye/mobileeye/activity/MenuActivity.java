@@ -7,16 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import mobileeye.mobileeye.MenuDisplayer;
+import mobileeye.mobileeye.MenuReader;
+import mobileeye.mobileeye.OnSwipeTouchListener;
 import mobileeye.mobileeye.R;
+import mobileeye.mobileeye.ReaderListener;
 
-public class MenuActivity extends AppCompatActivity implements View.OnLongClickListener {
+public class MenuActivity extends AppCompatActivity implements ReaderListener {
 
     String[] optionList = {"Error"};
     String[] selectedOptionInfoList;
     int currentOption;
     TextView optionTextView;
-    MenuDisplayer menuDisplayer;
+    MenuReader menuReader;
+    private static final int CANCEL = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,29 @@ public class MenuActivity extends AppCompatActivity implements View.OnLongClickL
         setContentView(R.layout.activity_menu);
 
         optionTextView = (TextView)findViewById(R.id.optionTextView);
-        optionTextView.setOnLongClickListener(this);
+        optionTextView.setOnTouchListener(new OnSwipeTouchListener(MenuActivity.this){
+
+            public void onSwipeTop() {
+                Intent data = new Intent();
+                data.putExtra("selectedOption", CANCEL);
+                setResult(RESULT_OK, data);
+                finish();
+            }
+            public void onSwipeRight() {
+                nextOptionClick(optionTextView);
+            }
+            public void onSwipeLeft() {
+                prevOptionClick(optionTextView);
+            }
+            public void onSwipeBottom() {
+
+            }
+
+            public void onLongClick() {
+                menuReader.read(selectedOptionInfoList[currentOption], MenuActivity.this);
+            }
+
+        });
         currentOption = 0;
 
         Bundle extras = getIntent().getExtras();
@@ -35,18 +60,25 @@ public class MenuActivity extends AppCompatActivity implements View.OnLongClickL
 
         optionTextView.setText(optionList[currentOption]);
 
-        menuDisplayer = new MenuDisplayer(this);
+        menuReader = new MenuReader(getApplicationContext());
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                menuDisplayer.display(optionList[currentOption]);
+                menuReader.read(optionList[currentOption]);
             }
         }, 500);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
-    public void optionClick(View view) {
+       currentOption = 0;
+    }
+
+
+    public void nextOptionClick(View view) {
 
         currentOption++;
         if(currentOption >= optionList.length) {
@@ -54,17 +86,29 @@ public class MenuActivity extends AppCompatActivity implements View.OnLongClickL
         }
 
         optionTextView.setText(optionList[currentOption]);
-        menuDisplayer.display(optionList[currentOption]);
+        menuReader.read(optionList[currentOption]);
     }
 
+    public void prevOptionClick(View view) {
+
+        currentOption--;
+        if(currentOption < 0) {
+            currentOption = optionList.length - 1;
+        }
+
+        optionTextView.setText(optionList[currentOption]);
+        menuReader.read(optionList[currentOption]);
+    }
+
+
     @Override
-    public boolean onLongClick(View view) {
-        menuDisplayer.display(selectedOptionInfoList[currentOption]);
+    public void onReadingCompleted() {
         Intent data = new Intent();
         data.putExtra("selectedOption", currentOption);
         setResult(RESULT_OK, data);
         finish();
 
-        return false;
     }
+
+
 }
