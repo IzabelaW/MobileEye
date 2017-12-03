@@ -40,6 +40,7 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
         activity = extras.getInt("activity");
 
         optionTextView = (TextView)findViewById(R.id.optionTextView);
+        Images.setNextImg(currentOption,optionTextView,this);
         optionTextView.setOnTouchListener(new OnSwipeTouchListener(MenuActivity.this){
 
             public void onSwipeTop() {
@@ -55,7 +56,6 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
                 prevOptionClick(optionTextView);
             }
             public void onSwipeBottom() {
-
             }
 
             public void onLongClick() {
@@ -68,6 +68,8 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
                         menuReader.read(selectedOptionInfoList[currentOption], MenuActivity.this);
                         break;
                 }
+                Images.setCurrentMenu(currentOption);
+
             }
 
         });
@@ -113,6 +115,15 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
        currentOption = 0;
     }
 
+    @Override
+    public void onBackPressed() {
+        Images.setCurrentMenu(Constants.MAIN_MENU);
+        super.onBackPressed();
+
+    }
+
+
+
 
     public void nextOptionClick(View view) {
 
@@ -137,6 +148,7 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
                 menuReader.read(optionList[currentOption]);
                 break;
         }
+        Images.setNextImg(currentOption,optionTextView,this);
     }
 
     public void prevOptionClick(View view) {
@@ -146,18 +158,22 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
         switch (activity) {
             case NAVIGATION:
             case FAVOURITE_NUMBERS:
-                if(currentOption < 0) {
+                if (currentOption < 0) {
                     currentOption = optionArrayList.size() - 1;
                 }
                 optionTextView.setText(optionArrayList.get(currentOption));
-                menuReader.read(optionArrayList.get(currentOption));                break;
+                menuReader.read(optionArrayList.get(currentOption));
+                break;
             default:
-                if(currentOption < 0) {
+                if (currentOption < 0) {
                     currentOption = optionList.length - 1;
                 }
                 optionTextView.setText(optionList[currentOption]);
-                menuReader.read(optionList[currentOption]);                break;
+                menuReader.read(optionList[currentOption]);
+                break;
         }
+        Images.setNextImg(currentOption,optionTextView,this);
+
     }
 
 

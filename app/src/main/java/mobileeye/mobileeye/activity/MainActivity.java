@@ -15,13 +15,13 @@ import mobileeye.mobileeye.database.DBHandler;
 import mobileeye.mobileeye.FavouriteNumber;
 import mobileeye.mobileeye.R;
 
+import static mobileeye.mobileeye.activity.Constants.NAVIGATION;
+import static mobileeye.mobileeye.activity.Constants.OBJECT_RECOGNITION;
+import static mobileeye.mobileeye.activity.Constants.VOICE_NOTES;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final int OPTION_MENU_RESULT = 1;
-
-    private static final int VOICE_NOTES = 0;
-    private static final int NAVIGATION = 2;
-    private static final int OBJECT_RECOGNITION = 1;
 
     private static final int SUB_ACTIVITY = 2;
 

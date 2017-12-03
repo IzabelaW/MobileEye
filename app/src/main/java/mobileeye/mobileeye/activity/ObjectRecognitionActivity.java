@@ -1,5 +1,6 @@
 package mobileeye.mobileeye.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -18,7 +19,9 @@ public class ObjectRecognitionActivity extends AppCompatActivity {
         // hello
     }
 
-    void f(){
-
+    @Override
+    public void onBackPressed() {
+        Images.setCurrentMenu(Constants.MAIN_MENU);
+        super.onBackPressed();
     }
 }
