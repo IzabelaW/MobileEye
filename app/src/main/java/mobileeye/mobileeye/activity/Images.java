@@ -11,7 +11,7 @@ import mobileeye.mobileeye.R;
 
 public class Images {
 
-    private static int[] drawablesMainMenu = {R.drawable.notatki_glosowe, R.drawable.czytanie, R.drawable.nawigacja};
+    private static int[] drawablesMainMenu = {R.drawable.notatki_glosowe, R.drawable.czytanie, R.drawable.nawigacja,R.drawable.ustawienia};
     private static int[] drawablesVoiceNotes = {R.drawable.dodaj, R.drawable.usun, R.drawable.przegladaj};
 
     private static int current_menu=Constants.MAIN_MENU;

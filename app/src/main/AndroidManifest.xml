@@ -10,9 +10,8 @@
 
     <application
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -31,6 +30,7 @@
         <activity android:name=".activity.NavigationActivity" />
         <activity android:name=".VoiceNotes.VoiceNotesActivity" />
         <activity android:name=".activity.ObjectRecognitionActivity" />
+        <activity  android:name=".activity.ConfigurationActivity" />
         <service  android:name=".MyService" />
         <activity android:name=".VoiceNotes.AddingNewNoteActivity" />
         <activity android:name=".VoiceNotes.ListeningNoteActivity" />
