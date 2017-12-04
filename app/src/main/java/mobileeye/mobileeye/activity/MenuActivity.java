@@ -56,6 +56,7 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
                 prevOptionClick(optionTextView);
             }
             public void onSwipeBottom() {
+               // onBackPressed(); //?
             }
 
             public void onLongClick() {
