@@ -18,7 +18,7 @@ import static mobileeye.mobileeye.activity.MainActivity.dbHandler;
  * Created by Nexito on 04.12.2017.
  */
 
-public class ConfigurationActivity extends Activity {
+public class AddFavouritiesActivity extends Activity {
 
     private Button add_number;
     private Button add_place;
@@ -32,7 +32,7 @@ public class ConfigurationActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.configuration_view);
+        setContentView(R.layout.add_favourities);
 
         nb_name=findViewById(R.id.nb_name);
         nb=findViewById(R.id.nb);
@@ -65,12 +65,7 @@ public class ConfigurationActivity extends Activity {
         });
 
     }
-    @Override
-    public void onBackPressed() {
-        Images.setCurrentMenu(Constants.MAIN_MENU);
-        super.onBackPressed();
 
-    }
 
     private void insertFavouriteNumer(String name,String number){
         dbHandler.addNewFavouriteNumber(new FavouriteNumber(dbHandler.getFavouriteNumbersCount()+1, name,number));

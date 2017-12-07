@@ -8,11 +8,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import mobileeye.mobileeye.FavouritePlace;
 import mobileeye.mobileeye.VoiceNotes.VoiceNote;
 import mobileeye.mobileeye.VoiceNotes.VoiceNotesActivity;
 import mobileeye.mobileeye.database.DBHandler;
-import mobileeye.mobileeye.FavouriteNumber;
 import mobileeye.mobileeye.R;
 
 import static mobileeye.mobileeye.activity.Constants.CONFIGURATION;
