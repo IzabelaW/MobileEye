@@ -25,7 +25,9 @@ public class Images {
                                             break;
                 case Constants.VOICE_NOTES: textView.setBackgroundDrawable(context.getResources().getDrawable(drawablesVoiceNotes[option]));
                     break;
-                case Constants.NAVIGATION: break;
+                case Constants.NAVIGATION:  textView.setBackgroundResource(0);
+
+                    break;
                 case Constants.OBJECT_RECOGNITION: break;
             }
         }

@@ -30,8 +30,11 @@
         <activity android:name=".Navigation.NavigationActivity" />
         <activity android:name=".VoiceNotes.VoiceNotesActivity" />
         <activity android:name=".activity.ObjectRecognitionActivity" />
-        <service  android:name=".Navigation.MyService" />
+        <activity android:name=".activity.DeleteFavouritiesActivity" />
+        <activity  android:name=".activity.AddFavouritiesActivity" />
         <activity  android:name=".activity.ConfigurationActivity" />
+        <activity  android:name=".activity.EditFavouritiesActivity" />
+        <service  android:name=".Navigation.MyService" />
         <activity android:name=".VoiceNotes.AddingNewNoteActivity" />
         <activity android:name=".VoiceNotes.ListeningNoteActivity" />
         <activity android:name=".VoiceNotes.DeletingNoteActivity"></activity>

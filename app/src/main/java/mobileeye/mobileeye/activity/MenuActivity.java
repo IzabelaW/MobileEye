@@ -41,6 +41,7 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
 
         optionTextView = (TextView)findViewById(R.id.optionTextView);
         Images.setNextImg(currentOption,optionTextView,this);
+        //czy tego nie trzeba dodac?
         optionTextView.setOnTouchListener(new OnSwipeTouchListener(MenuActivity.this){
 
             public void onSwipeTop() {
