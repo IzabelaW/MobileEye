@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import mobileeye.mobileeye.Navigation.NavigationActivity;
 import mobileeye.mobileeye.VoiceNotes.VoiceNote;
 import mobileeye.mobileeye.VoiceNotes.VoiceNotesActivity;
 import mobileeye.mobileeye.database.DBHandler;

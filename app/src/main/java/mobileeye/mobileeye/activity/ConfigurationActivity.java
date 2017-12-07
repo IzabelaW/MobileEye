@@ -44,7 +44,7 @@ public class ConfigurationActivity extends Activity {
         findViewById(R.id.remove).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent configurationIntent2 = new Intent(context, AddFavouritiesActivity.class);
+                Intent configurationIntent2 = new Intent(context, DeleteFavouritiesActivity.class);
                 startActivityForResult(configurationIntent2,2);
             }
         });
