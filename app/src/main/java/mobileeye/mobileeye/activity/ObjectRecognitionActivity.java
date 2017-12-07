@@ -1,16 +1,26 @@
 
         package mobileeye.mobileeye.activity;
 
+        import android.Manifest;
+        import android.accounts.Account;
+        import android.accounts.AccountManager;
         import android.content.Intent;
+        import android.content.pm.PackageManager;
         import android.graphics.Bitmap;
         import android.os.AsyncTask;
+        import android.os.Bundle;
         import android.os.Handler;
         import android.provider.MediaStore;
+        import android.support.annotation.NonNull;
+        import android.support.v4.app.ActivityCompat;
         import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
         import android.util.Log;
         import android.view.View;
+        import android.widget.TextView;
         import android.widget.Toast;
+
+        import com.google.android.gms.auth.GoogleAuthUtil;
+        import com.google.android.gms.common.AccountPicker;
         import com.google.api.client.extensions.android.http.AndroidHttp;
         import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
         import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -21,6 +31,7 @@
         import com.google.api.services.vision.v1.model.AnnotateImageRequest;
         import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
         import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
+        import com.google.api.services.vision.v1.model.EntityAnnotation;
         import com.google.api.services.vision.v1.model.Feature;
         import com.google.api.services.vision.v1.model.Image;
 
@@ -28,22 +39,11 @@
         import java.io.IOException;
         import java.util.ArrayList;
         import java.util.List;
+        import java.util.Locale;
 
+        import mobileeye.mobileeye.GetTokenTask;
         import mobileeye.mobileeye.MenuReader;
         import mobileeye.mobileeye.R;
-
-        import android.Manifest;
-        import android.accounts.Account;
-        import android.accounts.AccountManager;
-        import android.content.pm.PackageManager;
-        import android.support.annotation.NonNull;
-        import android.support.v4.app.ActivityCompat;
-        import android.widget.TextView;
-
-        import com.google.android.gms.auth.GoogleAuthUtil;
-        import com.google.android.gms.common.AccountPicker;
-        import com.google.api.services.vision.v1.model.EntityAnnotation;
-        import java.util.Locale;
 
 /**
  * Created by izabelawojciak on 06.11.2017.
@@ -386,12 +386,3 @@ public class ObjectRecognitionActivity extends AppCompatActivity {
         dispatchTakePictureIntent();
     }
 }
-    RAW Paste Data
-
-
-
-        create new paste  /  dealsnew!  /  api  /  trends  /  syntax languages  /  faq  /  tools  /  privacy  /  cookies  /  contact  /  dmca  /  scraping  /  go
-        Site design & logo © 2017 Pastebin; user contributions (pastes) licensed under cc by-sa 3.0 -- Dedicated Server Hosting by Steadfast
-
-        Top
-        xSign Up For FreeCircleCI 2.0 is freaking fast. We reduced builds from minutes to 12 seconds.

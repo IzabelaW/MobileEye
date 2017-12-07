@@ -1,5 +1,10 @@
 <resources>
-    <string name="app_name">MobileEye</string>
-    <string name="title_activity_voice_notes">VoiceNotesActivity</string>
-    <string name="google_maps_key">AIzaSyA2GtHoMjvGFwtLJwh_G0_Ktg8TbAazbbw</string>
+<string name="app_name">MobileEye</string>
+<string name="title_activity_voice_notes">VoiceNotesActivity</string>
+<string name="serwerResponse">Trwa skanowanie</string>
+<string name="startPhoto">Kliknij, aby rozpocząć skanowanie.</string>
+<string name="badConnection">Nie rozpoznano zdjęcia, proszę ponów próbę lub sprawdź swoje połączenie internetowe.</string>
+<string name="newPhoto">Kliknij aby zrobić zdjęcie</string>
+<string name="makePhoto">Kliknij aby rozpocząć robienie zdjęcia</string>
+<string name="google_maps_key">AIzaSyA2GtHoMjvGFwtLJwh_G0_Ktg8TbAazbbw</string>
 </resources>
