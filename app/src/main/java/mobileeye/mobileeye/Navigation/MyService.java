@@ -1,23 +1,32 @@
-package mobileeye.mobileeye;
+package mobileeye.mobileeye.Navigation;
 
 /**
  * Created by izabelawojciak on 18.11.2017.
  */
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+
 public class MyService extends Service {
     private static final String TAG = "TESTGPS";
     private LocationManager mLocationManager = null;
     private static final int LOCATION_INTERVAL = 1000;
-    private static final float LOCATION_DISTANCE = 1f;
+    private static final float LOCATION_DISTANCE = 2;
+
+    private boolean locationUpdatesRequest = false;
+    private IfLocationUpdatesRequestReceiver ifLocationUpdatesRequestReceiver;
 
     private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
@@ -31,6 +40,15 @@ public class MyService extends Service {
         public void onLocationChanged(Location location) {
             Log.e(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
+
+            if (locationUpdatesRequest) {
+                CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude()));
+                NavigationActivity.googleMap.moveCamera(center);
+
+                CameraUpdate zoom = CameraUpdateFactory.zoomTo(100);
+                NavigationActivity.googleMap.animateCamera(zoom);
+            }
+
             sendMessage(location);
         }
 
@@ -71,6 +89,11 @@ public class MyService extends Service {
     public void onCreate() {
         Log.e(TAG, "onCreate");
         initializeLocationManager();
+        ifLocationUpdatesRequestReceiver = new IfLocationUpdatesRequestReceiver();
+
+        registerReceiver(ifLocationUpdatesRequestReceiver,
+                new IntentFilter("LOCATION_UPDATES_REQUEST"));
+
         try {
             mLocationManager.requestLocationUpdates(
                     LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
@@ -104,6 +127,7 @@ public class MyService extends Service {
                 }
             }
         }
+        unregisterReceiver(ifLocationUpdatesRequestReceiver);
     }
 
     private void initializeLocationManager() {
@@ -114,11 +138,18 @@ public class MyService extends Service {
     }
 
     private void sendMessage(Location location) {
-        // The string "my-integer" will be used to filer the intent
+        // The string "LOCATION_CHANGED" will be used to filter the intent
         Intent intent = new Intent("LOCATION_CHANGED");
         // Adding some data
         intent.putExtra("NEW_LOCATION", location);
         getApplicationContext().sendBroadcast(intent);
-//        Toast.makeText(getApplicationContext(),"WYSŁANO",Toast.LENGTH_LONG).show();
+    }
+
+    public class IfLocationUpdatesRequestReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Extract data included in the Intent
+            locationUpdatesRequest = intent.getExtras().getBoolean("LOCATION_UPDATES_REQUEST");
+        }
     }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import mobileeye.mobileeye.R;
 import mobileeye.mobileeye.activity.MenuActivity;
@@ -24,7 +23,7 @@ public class VoiceNotesActivity extends AppCompatActivity {
     private static final int ADD_VOICENOTE = 0;
     private static final int DELETE_VOICENOTE = 1;
     private static final int LISTEN_VOICENOTE = 2;
-    private static final int CANCEL = 3;
+    private static final int CANCEL = -1;
 
     private String[] optionList = {"Dodaj nową notatkę", "Usuń istniejącą notatkę", "Przeglądaj swoje notatki"};
     private String[] selectedOptionInfoList = {"Wybrano opcję: dodaj nową notatkę", "Wybrano opcję: usuń istniejącą notatkę",
@@ -54,7 +53,7 @@ public class VoiceNotesActivity extends AppCompatActivity {
         int selectedOption = 0;
 
         if (requestCode == OPTION_MENU_RESULT) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK && data != null) {
                 selectedOption = data.getIntExtra("selectedOption", 0);
                 switch (selectedOption) {
                     case ADD_VOICENOTE:

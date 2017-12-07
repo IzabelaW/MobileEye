@@ -18,7 +18,7 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
 
     private static final int NAVIGATION = 1;
     private static final int FAVOURITE_NUMBERS = 2;
-    private static final int CANCEL = 3;
+    private static final int CANCEL = -1;
 
     private int activity;
 
