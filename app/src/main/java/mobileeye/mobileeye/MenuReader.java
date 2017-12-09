@@ -33,8 +33,6 @@ public class MenuReader implements TextToSpeech.OnInitListener{
         tts.speak(option, TextToSpeech.QUEUE_FLUSH, map);
     }
 
-
-
     public void setReaderListener(ReaderListener readerListener){
         this.readerListener = readerListener;
     }

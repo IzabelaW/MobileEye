@@ -8,27 +8,27 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import mobileeye.mobileeye.FavouritePlace;
+import mobileeye.mobileeye.Navigation.NavigationActivity;
 import mobileeye.mobileeye.VoiceNotes.VoiceNote;
 import mobileeye.mobileeye.VoiceNotes.VoiceNotesActivity;
 import mobileeye.mobileeye.database.DBHandler;
-import mobileeye.mobileeye.FavouriteNumber;
 import mobileeye.mobileeye.R;
+
+import static mobileeye.mobileeye.activity.Constants.CONFIGURATION;
+import static mobileeye.mobileeye.activity.Constants.NAVIGATION;
+import static mobileeye.mobileeye.activity.Constants.OBJECT_RECOGNITION;
+import static mobileeye.mobileeye.activity.Constants.VOICE_NOTES;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int OPTION_MENU_RESULT = 1;
 
-    private static final int VOICE_NOTES = 0;
-    private static final int NAVIGATION = 2;
-    private static final int OBJECT_RECOGNITION = 1;
-
     private static final int SUB_ACTIVITY = 2;
 
-    private String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja"};
+    private String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja","Panel konfiguracyjny \n osoby widomej"};
 
     private String[] selectedOptionInfoList = {"Wybrano opcję: notatki głosowe", "Wybrano opcję: rozpoznawanie obiektów i czytanie tekstu",
-            "Wybrano opcję: nawigacja"};
+            "Wybrano opcję: nawigacja", "Wybrano opcję: panel konfiguracyjny osoby widomej "};
 
     public static DBHandler dbHandler;
 
@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
                     Intent objectRecognitionIntent = new Intent(this, ObjectRecognitionActivity.class);
                     startActivityForResult(objectRecognitionIntent, SUB_ACTIVITY);
                     break;
+                case CONFIGURATION:
+                    Intent configurationIntent = new Intent(this, ConfigurationActivity.class);
+                    startActivityForResult(configurationIntent,SUB_ACTIVITY);
+                    break;
                 default:
                     Intent voiceNotesIntent1 = new Intent(this, VoiceNotesActivity.class);
                     startActivityForResult(voiceNotesIntent1, SUB_ACTIVITY);
@@ -73,15 +77,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //***********************************************************
         //Testing DataBase
-        dbHandler = new DBHandler(this);
+       dbHandler = new DBHandler(this);
         ArrayList<VoiceNote> voiceNotesList = dbHandler.getAllVoiceNotes();
         for(int i = 0; i < voiceNotesList.size(); i++){
             Log.i("list ", Integer.toString(voiceNotesList.get(i).getId()) + " " + voiceNotesList.get(i).getTitleDirectory() +
-            " " + voiceNotesList.get(i).getContentDirectory());
+                    " " + voiceNotesList.get(i).getContentDirectory());
         }
-
+        /*
         //Inserting FavouriteNumbers
         Log.d("Inserting: ", "Inserting new numbers...");
         dbHandler.addNewFavouriteNumber(new FavouriteNumber(dbHandler.getFavouriteNumbersCount()+1, "Tata", "600336250"));
@@ -111,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             favouritePlace = dbHandler.getFavouritePlace(i);
             log2 = "Id: " + favouritePlace.getId() + ", Place name: " + favouritePlace.getPlaceName() + ", Place address: " + favouritePlace.getPlaceAddress();
             Log.d("FAVOURITE PLACE: ", log2);
-        }
+        }*/
         /*
 
         Log.d("Inserting: ", "Inserting new voice notes...");

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_margin="@dimen/margin_size">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:padding="@dimen/margin_size"
+        >
+        <ImageView
+           android:layout_alignParentLeft="true"
+            android:layout_width="@dimen/picture_size"
+            android:layout_height="@dimen/picture_size"
+            android:src="@drawable/button_add"/>
+        <Button
+            android:id="@+id/add"
+            android:layout_alignParentRight="true"
+            android:layout_width="150dp"
+            android:layout_height="@dimen/picture_size"
+            android:text="DODAJ"
+            />
+
+ </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_margin="@dimen/margin_size"
+        >
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_width="@dimen/picture_size"
+            android:layout_height="@dimen/picture_size"
+            android:src="@drawable/edytuj"/>
+        <Button
+            android:id="@+id/edit"
+            android:layout_alignParentRight="true"
+            android:layout_width="150dp"
+            android:layout_height="@dimen/picture_size"
+            android:text="EDYTUJ"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_margin="@dimen/margin_size">
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_width="@dimen/picture_size"
+            android:layout_height="@dimen/picture_size"
+            android:src="@drawable/remove_button"/>
+        <Button
+            android:id="@+id/remove"
+            android:layout_alignParentRight="true"
+            android:layout_width="150dp"
+            android:layout_height="@dimen/picture_size"
+            android:text="USUN"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

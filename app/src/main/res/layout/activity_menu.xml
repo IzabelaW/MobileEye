@@ -5,10 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mobileeye.mobileeye.activity.MenuActivity">
+    tools:context="mobileeye.mobileeye.activity.MenuActivity"
+    android:orientation="horizontal">
 
 
     <TextView
+        android:background="@drawable/notatki_glosowe"
         android:id="@+id/optionTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

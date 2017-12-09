@@ -206,6 +206,7 @@ public class DBHandler extends SQLiteOpenHelper {
         sqLiteDatabase.close(); // Closing database connection 
     }
 
+    //id starts at 1
     public FavouritePlace getFavouritePlace(int id) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.query(TABLE_FAVOURITE_PLACES, new String[]{FAV_PLACE_KEY_ID, FAV_PLACE_KEY_PLACENAME, FAV_PLACE_KEY_PLACEADDRESS}, FAV_PLACE_KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
