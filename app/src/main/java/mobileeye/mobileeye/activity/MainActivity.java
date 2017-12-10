@@ -3,19 +3,13 @@ package mobileeye.mobileeye.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import mobileeye.mobileeye.FavouriteNumbers.FavouriteNumber;
 import mobileeye.mobileeye.FavouriteNumbers.FavouriteNumbersActivity;
-import mobileeye.mobileeye.FavouritePlace;
 import mobileeye.mobileeye.Navigation.NavigationActivity;
-import mobileeye.mobileeye.VoiceNotes.VoiceNote;
+import mobileeye.mobileeye.R;
 import mobileeye.mobileeye.VoiceNotes.VoiceNotesActivity;
 import mobileeye.mobileeye.database.DBHandler;
-import mobileeye.mobileeye.R;
 
 import static mobileeye.mobileeye.activity.Constants.CONFIGURATION;
 import static mobileeye.mobileeye.activity.Constants.FAVOURITE_NUMBERS;
@@ -35,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
             "Wybrano opcję: nawigacja",  "Wybrano opcję: panel konfiguracyjny osoby widomej ", "Wybrano opcję: ulubione numery"};
 
     public static DBHandler dbHandler;
+
+    public static Intent starterIntent;
 
 
     @Override
@@ -83,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        starterIntent = getIntent();
+
         dbHandler = new DBHandler(this);
 
         dbHandler.addNewFavouriteNumber(new FavouriteNumber(dbHandler.getFavouriteNumbersCount()+1, "Iza", "517105496"));

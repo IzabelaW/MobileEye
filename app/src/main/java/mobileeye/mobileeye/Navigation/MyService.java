@@ -42,11 +42,8 @@ public class MyService extends Service {
             mLastLocation.set(location);
 
             if (locationUpdatesRequest) {
-                CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude()));
-                NavigationActivity.googleMap.moveCamera(center);
-
-                CameraUpdate zoom = CameraUpdateFactory.zoomTo(100);
-                NavigationActivity.googleMap.animateCamera(zoom);
+                CameraUpdate center = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()),20);
+                NavigationActivity.googleMap.animateCamera(center);
             }
 
             sendMessage(location);

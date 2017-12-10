@@ -17,7 +17,6 @@ import mobileeye.mobileeye.ReaderListener;
 public class MenuActivity extends AppCompatActivity implements ReaderListener{
 
     private static final int NAVIGATION = 1;
-    private static final int FAVOURITE_NUMBERS = 2;
     private static final int CANCEL = -1;
 
     private int activity;
@@ -35,6 +34,8 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        menuReader = new MenuReader(getApplicationContext());
 
         Bundle extras = getIntent().getExtras();
         activity = extras.getInt("activity");
@@ -63,7 +64,6 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
             public void onLongClick() {
                 switch (activity) {
                     case NAVIGATION:
-                    case FAVOURITE_NUMBERS:
                         menuReader.read(selectedOptionInfoArrayList.get(currentOption), MenuActivity.this);
                         break;
                     default:
@@ -80,24 +80,35 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
         if (extras != null) {
             switch (activity) {
                 case NAVIGATION:
-                case FAVOURITE_NUMBERS:
                     optionArrayList = extras.getStringArrayList("optionList");
                     selectedOptionInfoArrayList = extras.getStringArrayList("selectedOptionInfoList");
-                    optionTextView.setText(optionArrayList.get(currentOption));
-                    menuReader = new MenuReader(getApplicationContext());
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            menuReader.read(optionArrayList.get(currentOption));
-                        }
-                    }, 500);
+
+                    if (optionArrayList.size() == 0){
+                        currentOption = -1;
+                        optionTextView.setText("Brak miejsc docelowych.");
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                menuReader.read("Brak miejsc docelowych.", MenuActivity.this);
+                            }
+                        }, 500);
+                    }
+                    else {
+                        optionTextView.setText(optionArrayList.get(currentOption));
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                menuReader.read(optionArrayList.get(currentOption));
+                            }
+                        }, 500);
+                    }
                     break;
                 default:
                     optionList = extras.getStringArray("optionList");
                     selectedOptionInfoList = extras.getStringArray("selectedOptionInfoList");
                     optionTextView.setText(optionList[currentOption]);
-                    menuReader = new MenuReader(getApplicationContext());
                     final Handler handler1 = new Handler();
                     handler1.postDelayed(new Runnable() {
                         @Override
@@ -124,16 +135,12 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
 
     }
 
-
-
-
     public void nextOptionClick(View view) {
 
         currentOption++;
 
         switch (activity){
             case NAVIGATION:
-            case FAVOURITE_NUMBERS:
                 if(currentOption >= optionArrayList.size()) {
                     currentOption = 0;
                 }
@@ -159,7 +166,6 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
 
         switch (activity) {
             case NAVIGATION:
-            case FAVOURITE_NUMBERS:
                 if (currentOption < 0) {
                     currentOption = optionArrayList.size() - 1;
                 }
@@ -178,14 +184,12 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
 
     }
 
-
     @Override
     public void onReadingCompleted() {
         Intent data = new Intent();
         data.putExtra("selectedOption", currentOption);
         setResult(RESULT_OK, data);
         finish();
-
     }
 
 

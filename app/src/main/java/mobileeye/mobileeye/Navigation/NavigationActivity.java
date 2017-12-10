@@ -68,6 +68,7 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
     private boolean readingDone = false;
     private boolean locationPermission = false;
     private boolean messageSend = false;
+    private boolean currentLocationNotNull = false;
 
     private ArrayList<String> optionList;
     private ArrayList<String> selectedOptionInfoList;
@@ -78,6 +79,9 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
         public void onReceive(Context context, Intent intent) {
             // Extract data included in the Intent
             currentLocation = intent.getExtras().getParcelable("NEW_LOCATION");
+
+            if (currentLocation != null)
+                currentLocationNotNull = true;
 
             if (currentStep >= 1 && readingDone) {
                 checkForUpdates();
@@ -94,34 +98,34 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
             finish();
         }
         else {
-                double stepLat = Double.parseDouble(steps.get(currentStep).get("startLat"));
-                double stepLng = Double.parseDouble(steps.get(currentStep).get("startLng"));
+            double stepLat = Double.parseDouble(steps.get(currentStep).get("startLat"));
+            double stepLng = Double.parseDouble(steps.get(currentStep).get("startLng"));
 
-                Location stepLocation = new Location("");
-                stepLocation.setLatitude(stepLat);
-                stepLocation.setLongitude(stepLng);
+            Location stepLocation = new Location("");
+            stepLocation.setLatitude(stepLat);
+            stepLocation.setLongitude(stepLng);
 
-                if (currentStep + 1 < steps.size()) {
-                    Location nextStepLocation = new Location("");
+            if (currentStep + 1 < steps.size()) {
+                Location nextStepLocation = new Location("");
 
-                    double nextStepLat = Double.parseDouble(steps.get(currentStep + 1).get("startLat"));
-                    double nextStepLng = Double.parseDouble(steps.get(currentStep + 1).get("startLng"));
+                double nextStepLat = Double.parseDouble(steps.get(currentStep + 1).get("startLat"));
+                double nextStepLng = Double.parseDouble(steps.get(currentStep + 1).get("startLng"));
 
-                    nextStepLocation.setLatitude(nextStepLat);
-                    nextStepLocation.setLongitude(nextStepLng);
+                nextStepLocation.setLatitude(nextStepLat);
+                nextStepLocation.setLongitude(nextStepLng);
 
-                    if (currentLocation.distanceTo(stepLocation) <= 10) {
-                        readingDone = false;
-                        menuReader.read(steps.get(currentStep).get("htmlInstruction") + ". Za " + steps.get(currentStep).get("distance") + "metrów" + steps.get(currentStep + 1).get("htmlInstruction"), NavigationActivity.this);
-                    }
-                    else if (currentLocation.distanceTo(stepLocation) > currentLocation.distanceTo(nextStepLocation)) {
-                        currentStep++;
-                    }
-                }
-                else if (currentLocation.distanceTo(stepLocation) <= 10) {
+                if (currentLocation.distanceTo(stepLocation) <= 10) {
                     readingDone = false;
-                    menuReader.read(steps.get(currentStep).get("htmlInstruction"), NavigationActivity.this);
+                    menuReader.read(steps.get(currentStep).get("htmlInstruction") + ". Za " + steps.get(currentStep).get("distance") + "metrów" + steps.get(currentStep + 1).get("htmlInstruction"), NavigationActivity.this);
                 }
+                else if (currentLocation.distanceTo(stepLocation) > currentLocation.distanceTo(nextStepLocation)) {
+                    currentStep++;
+                }
+            }
+            else if (currentLocation.distanceTo(stepLocation) <= 10) {
+                readingDone = false;
+                menuReader.read(steps.get(currentStep).get("htmlInstruction"), NavigationActivity.this);
+            }
 
         }
     }
@@ -131,31 +135,21 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-        ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                MY_PERMISSIONS_REQUEST_LOCATION);
-
-        SupportMapFragment mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragment.getMapAsync(this);
-
         menuReader = new MenuReader(getApplicationContext());
         menuReader.setReaderListener(this);
-        locationReceiver = new LocationReceiver();
 
         OptionListCreator optionListCreator = new OptionListCreator();
 
         optionList = optionListCreator.createOptionList();
         selectedOptionInfoList = optionListCreator.createSelectedOptionInfoList();
         markers = new ArrayList<>();
+        locationReceiver = new LocationReceiver();
 
         Intent optionMenuIntent = new Intent(this, MenuActivity.class);
         optionMenuIntent.putExtra("activity", 1);
         optionMenuIntent.putExtra("optionList", optionList);
         optionMenuIntent.putExtra("selectedOptionInfoList", selectedOptionInfoList);
         startActivityForResult(optionMenuIntent, OPTION_MENU_RESULT);
-
-        Intent intent = new Intent(this, MyService.class);
-        startService(intent);
     }
 
     @Override
@@ -176,19 +170,17 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
                     d.putExtra("selectedOption", CANCEL);
                     setResult(RESULT_OK, data);
                     finish();
+//                    startActivity(MainActivity.starterIntent);
                 } else {
+
+                    SupportMapFragment mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
+                    mapFragment.getMapAsync(this);
+
                     selectedPlace = MainActivity.dbHandler.getFavouritePlace(selectedOption + 1);
 
-                    MarkerOptions options = new MarkerOptions();
-                    LatLng latLng = new LatLng(currentLocation.getLatitude(),currentLocation.getLongitude());
-                    options.position(latLng);
-                    Marker marker = googleMap.addMarker(options);
-                    markers.add(marker);
-
-//                    downloadPath = true;
-//                    menuReader.read("Proszę czekać. Pobieram trasę.",NavigationActivity.this);
-
-                    downloadRoute();
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            MY_PERMISSIONS_REQUEST_LOCATION);
                 }
             }
         }
@@ -234,11 +226,6 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
     }
 
     public class DownloadTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
         @Override
         protected String doInBackground(String... url) {
@@ -373,7 +360,7 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
     private void centerCamera() throws NullPointerException {
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (Marker marker : markers) {
-        builder.include(marker.getPosition());
+            builder.include(marker.getPosition());
         }
 
         LatLngBounds bounds = builder.build();
@@ -387,12 +374,16 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
         super.onStart();
         registerReceiver(locationReceiver,
                 new IntentFilter("LOCATION_CHANGED"));
+
+        Log.d("RECEIVER","REGISTERED");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(locationReceiver);
+        Log.d("RECEIVER","UNREGISTERED");
+
     }
 
     @Override
@@ -415,7 +406,45 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
                 locationPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
-        if (!locationPermission) {
+        if (locationPermission) {
+            Intent intent = new Intent(this, MyService.class);
+            startService(intent);
+
+            AsyncTask asyncTask = new AsyncTask() {
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    downloadPath = true;
+                    menuReader.read("Proszę czekać. Pobieram trasę", NavigationActivity.this);
+                }
+
+                @Override
+                protected Object doInBackground(Object[] objects) {
+                    while (true){
+                        if (currentLocationNotNull){
+                            break;
+                        }
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(Object object) {
+                    super.onPostExecute(object);
+                    MarkerOptions options = new MarkerOptions();
+                    LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                    options.position(latLng);
+                    Marker marker = googleMap.addMarker(options);
+                    markers.add(marker);
+                    downloadRoute();
+                }
+
+            };
+
+            asyncTask.execute();
+
+        } else {
             finish();
         }
     }
