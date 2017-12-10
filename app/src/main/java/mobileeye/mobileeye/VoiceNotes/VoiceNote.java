@@ -6,18 +6,19 @@ package mobileeye.mobileeye.VoiceNotes;
 
 public class VoiceNote {
 
-    private int id;
+
+    private String date;
     private String titleDir;
     private String noteBodyDir;
 
-    public VoiceNote(int id, String titleDir, String noteBodyDir){
-        this.id = id;
+    public VoiceNote(String date, String titleDir, String noteBodyDir){
+        this.date = date;
         this.titleDir = titleDir;
         this.noteBodyDir = noteBodyDir;
     }
 
-    public int getId() {
-        return id;
+    public String getDate() {
+        return date;
     }
 
     public String getTitleDirectory() {
@@ -28,8 +29,8 @@ public class VoiceNote {
         return noteBodyDir;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void setTitleDir(String titleDir) {
