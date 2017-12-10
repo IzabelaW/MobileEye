@@ -11,6 +11,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import mobileeye.mobileeye.MenuReader;
 import mobileeye.mobileeye.OnSwipeTouchListener;
 import mobileeye.mobileeye.R;
@@ -46,10 +48,12 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
         TextView infoTextView = (TextView) findViewById(R.id.addingNewNoteInfoTextView);
         infoTextView.setOnTouchListener(new OnSwipeTouchListener(AddingNewNoteActivity.this){
 
+
             public void onSwipeTop() {
                 finish();
             }
             public void onSwipeRight() {
+
 
             }
             public void onSwipeLeft() {
@@ -61,6 +65,7 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
 
             public void onClick() {
                 recorder.stopRecording();
+                Log.i("click ", "click");
 
                 if(noteBodyRecordingInProgress) {
                     saveRecordedNote();
@@ -110,7 +115,6 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
 
     private void addVoiceNote() {
         newTitleFile = prepareFileToSaveNewRecording(NotePart.TITLE);
-        Toast.makeText(this, newTitleFile, Toast.LENGTH_LONG).show();
         newNoteFile = prepareFileToSaveNewRecording(NotePart.NOTE_BODY);
         startVoiceNoteRecording(NotePart.TITLE);
         titleRecordingInProgress = true;
@@ -136,7 +140,7 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
     }
 
     private void saveRecordedNote(){
-        VoiceNote newVoiceNote = new VoiceNote(dbHandler.getVoiceNotesCount() + 1, newTitleFile, newNoteFile);
+        VoiceNote newVoiceNote = new VoiceNote(new Date().toString(), newTitleFile, newNoteFile);
         dbHandler.addNewVoiceNote(newVoiceNote);
     }
 
@@ -154,10 +158,13 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
 
     private String prepareFileToSaveNewRecording(NotePart notePart){
         String newFileName;
-        String newNoteStringId = Integer.toString(dbHandler.getVoiceNotesCount() + 1);
+        ///String newNoteStringId = Integer.toString(dbHandler.getVoiceNotesCount() + 1);
 
-       // String newNoteStringId = Integer.toString(1);
-      newFileName = getCacheDir().getAbsolutePath();
+        String newNoteStringId = String.valueOf(new Date().getTime());
+        newNoteStringId = newNoteStringId.replace(" ", "");
+
+        // String newNoteStringId = Integer.toString(1);
+        newFileName = getCacheDir().getAbsolutePath();
         switch(notePart){
             case TITLE:
                 newFileName += "/title" + newNoteStringId + ".3gp";

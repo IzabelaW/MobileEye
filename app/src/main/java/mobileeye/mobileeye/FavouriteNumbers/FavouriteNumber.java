@@ -1,4 +1,4 @@
-package mobileeye.mobileeye;
+package mobileeye.mobileeye.FavouriteNumbers;
 
 /**
  * Created by izabelawojciak on 11.11.2017.

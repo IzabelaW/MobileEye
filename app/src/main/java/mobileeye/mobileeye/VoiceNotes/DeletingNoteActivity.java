@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import mobileeye.mobileeye.MenuReader;
 import mobileeye.mobileeye.OnSwipeTouchListener;
 import mobileeye.mobileeye.R;
@@ -22,6 +24,7 @@ public class DeletingNoteActivity extends AppCompatActivity implements ReaderLis
     private String deletingCompleted = "Usuwanie notatki przebiegło pomyślnie";
     private String noNotes = "Brak notatek";
     private static final int FAKE_NOTES_NUMB = 1;
+    private ArrayList<VoiceNote> voiceNotesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class DeletingNoteActivity extends AppCompatActivity implements ReaderLis
         player = new Player();
         currentId = 0;
 
+        voiceNotesList = dbHandler.getAllVoiceNotes();
         notesCount = dbHandler.getVoiceNotesCount();
         final Handler handler = new Handler();
         if(notesCount == 0){
@@ -75,31 +79,31 @@ public class DeletingNoteActivity extends AppCompatActivity implements ReaderLis
     private void listenToNextNoteTitle(){
 
         currentId++;
-        if(currentId > notesCount){
-            currentId = 1;
+        if(currentId >= voiceNotesList.size()){
+            currentId = 0;
         }
 
-        Log.i("list count", Integer.toString(dbHandler.getVoiceNotesCount()));
-        Log.i("list title dir", dbHandler.getVoiceNote(currentId).getTitleDirectory());
-        player.startPlaying(dbHandler.getVoiceNote(currentId).getTitleDirectory());
+        Log.i("list count next", Integer.toString(dbHandler.getVoiceNotesCount()));
+        Log.i("list id ", Integer.toString(currentId));
+        player.startPlaying(dbHandler.getVoiceNote(voiceNotesList.get(currentId).getDate()).getTitleDirectory());
     }
 
     private void listenToPrevNoteTitle(){
 
         currentId--;
-        if(currentId < 1){
-            currentId = notesCount;
+        if(currentId < 0){
+            currentId = voiceNotesList.size() - 1;
         }
 
         Log.i("list count", Integer.toString(dbHandler.getVoiceNotesCount()));
-        Log.i("list title dir", dbHandler.getVoiceNote(currentId).getTitleDirectory());
-        player.startPlaying(dbHandler.getVoiceNote(currentId).getTitleDirectory());
+
+        player.startPlaying(dbHandler.getVoiceNote(voiceNotesList.get(currentId).getDate()).getTitleDirectory());
     }
 
     private void deleteNote(){
-        dbHandler.deleteVoiceNote(dbHandler.getVoiceNote(currentId));
+        dbHandler.deleteVoiceNote(dbHandler.getVoiceNote(voiceNotesList.get(currentId).getDate()));
         menuReader.read(deletingCompleted, DeletingNoteActivity.this);
-       notesCount = dbHandler.getVoiceNotesCount();
+        notesCount = dbHandler.getVoiceNotesCount();
     }
 
 
