@@ -3,18 +3,16 @@ package mobileeye.mobileeye.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-
+import mobileeye.mobileeye.FavouriteNumbers.FavouriteNumber;
+import mobileeye.mobileeye.FavouriteNumbers.FavouriteNumbersActivity;
 import mobileeye.mobileeye.Navigation.NavigationActivity;
-import mobileeye.mobileeye.VoiceNotes.VoiceNote;
+import mobileeye.mobileeye.R;
 import mobileeye.mobileeye.VoiceNotes.VoiceNotesActivity;
 import mobileeye.mobileeye.database.DBHandler;
-import mobileeye.mobileeye.R;
 
 import static mobileeye.mobileeye.activity.Constants.CONFIGURATION;
+import static mobileeye.mobileeye.activity.Constants.FAVOURITE_NUMBERS;
 import static mobileeye.mobileeye.activity.Constants.NAVIGATION;
 import static mobileeye.mobileeye.activity.Constants.OBJECT_RECOGNITION;
 import static mobileeye.mobileeye.activity.Constants.VOICE_NOTES;
@@ -25,12 +23,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int SUB_ACTIVITY = 2;
 
-    private String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja","Panel konfiguracyjny \n osoby widomej"};
+    private String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja",  "Panel konfiguracyjny \n osoby widomej", "Ulubione numery"};
 
     private String[] selectedOptionInfoList = {"Wybrano opcję: notatki głosowe", "Wybrano opcję: rozpoznawanie obiektów i czytanie tekstu",
-            "Wybrano opcję: nawigacja", "Wybrano opcję: panel konfiguracyjny osoby widomej "};
+            "Wybrano opcję: nawigacja",  "Wybrano opcję: panel konfiguracyjny osoby widomej ", "Wybrano opcję: ulubione numery"};
 
     public static DBHandler dbHandler;
+
+    public static Intent starterIntent;
 
 
     @Override
@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == OPTION_MENU_RESULT) {
             if (resultCode == RESULT_OK) {
                 selectedOption = data.getIntExtra("selectedOption", 0);
-                Toast.makeText(this, "Selected " + selectedOption, Toast.LENGTH_LONG).show();
             }
 
             switch (selectedOption) {
@@ -60,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
                     Intent configurationIntent = new Intent(this, ConfigurationActivity.class);
                     startActivityForResult(configurationIntent,SUB_ACTIVITY);
                     break;
+                case FAVOURITE_NUMBERS:
+                    Intent favouriteNumbersIntent = new Intent(this, FavouriteNumbersActivity.class);
+                    startActivityForResult(favouriteNumbersIntent, SUB_ACTIVITY);
+                    break;
                 default:
                     Intent voiceNotesIntent1 = new Intent(this, VoiceNotesActivity.class);
                     startActivityForResult(voiceNotesIntent1, SUB_ACTIVITY);
@@ -77,16 +80,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        starterIntent = getIntent();
 
+        dbHandler = new DBHandler(this);
+
+        dbHandler.addNewFavouriteNumber(new FavouriteNumber(dbHandler.getFavouriteNumbersCount()+1, "Iza", "517105496"));
         //***********************************************************
         //Testing DataBase
+        /*
        dbHandler = new DBHandler(this);
         ArrayList<VoiceNote> voiceNotesList = dbHandler.getAllVoiceNotes();
         for(int i = 0; i < voiceNotesList.size(); i++){
             Log.i("list ", Integer.toString(voiceNotesList.get(i).getId()) + " " + voiceNotesList.get(i).getTitleDirectory() +
                     " " + voiceNotesList.get(i).getContentDirectory());
         }
-        /*
+
         //Inserting FavouriteNumbers
         Log.d("Inserting: ", "Inserting new numbers...");
         dbHandler.addNewFavouriteNumber(new FavouriteNumber(dbHandler.getFavouriteNumbersCount()+1, "Tata", "600336250"));
@@ -102,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             log1 = "Id: " + favouriteNumber.getId() + ", Name: " + favouriteNumber.getContactName() + ", Number: " + favouriteNumber.getContactNumber();
             Log.d("FAVOURITE NUMBER: ", log1);
         }
+
 
         Log.d("Inserting: ", "Inserting new places...");
         dbHandler.addNewFavouritePlace(new FavouritePlace(dbHandler.getFavouritePlacesCount()+1, "Dom", "Brenica 85"));

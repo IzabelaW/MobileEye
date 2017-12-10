@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VoiceNotes.AddingNewNoteActivity"
-    android:orientation="vertical">
+    tools:context="mobileeye.mobileeye.FavouriteNumbers.FavouriteNumbersActivity">
+
 
     <TextView
-        android:id="@+id/deletingNoteInfoTextView"
+        android:id="@+id/favouriteNumbersInfoTextView"
         android:layout_width="match_parent"
-        android:background="@drawable/usun"
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_weight="1"
-        android:text="Tryb: usuwanie notatek"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

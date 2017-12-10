@@ -10,9 +10,9 @@ import mobileeye.mobileeye.activity.MainActivity;
  */
 
 public class OptionListCreator {
+
     public ArrayList<String> createOptionList() {
         ArrayList<String> optionList = new ArrayList<>();
-
         for (FavouritePlace favouritePlace : MainActivity.dbHandler.getAllFavouritePlaces()) {
             optionList.add(favouritePlace.getPlaceName());
         }

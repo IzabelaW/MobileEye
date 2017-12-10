@@ -5,10 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
-import mobileeye.mobileeye.FavouriteNumber;
+import mobileeye.mobileeye.FavouriteNumbers.FavouriteNumber;
 import mobileeye.mobileeye.FavouritePlace;
 import mobileeye.mobileeye.VoiceNotes.VoiceNote;
 
@@ -26,9 +27,10 @@ public class DBHandler extends SQLiteOpenHelper {
     // Voice notes table name
     private static final String TABLE_VOICE_NOTES = "VoiceNotes";
     //Voice notes table columns names
-    private static final String VOICENOTE_KEY_ID = "id";
+    private static final String VOICENOTE_KEY_DATE = "date";
     private static final String VOICENOTE_KEY_TITLE_DIRECTORY = "titleDirectory";
     private static final String VOICENOTE_KEY_CONTENT_DIRECTORY = "contentDirectory";
+
 
     // Favourite numbers table name
     private static final String TABLE_FAVOURITE_NUMBERS = "FavouriteNumbers";
@@ -50,7 +52,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String CREATE_VOICENOTES_TABLE = "CREATE TABLE " + TABLE_VOICE_NOTES + " ( " + VOICENOTE_KEY_ID + " INTEGER, " + VOICENOTE_KEY_TITLE_DIRECTORY + " TEXT, " + VOICENOTE_KEY_CONTENT_DIRECTORY + " TEXT " + ")";
+        String CREATE_VOICENOTES_TABLE = "CREATE TABLE " + TABLE_VOICE_NOTES + " ( " + VOICENOTE_KEY_DATE  + " INTEGER, " + VOICENOTE_KEY_TITLE_DIRECTORY + " TEXT, " + VOICENOTE_KEY_CONTENT_DIRECTORY + " TEXT " + ")";
         String CREATE_FAVOURITENUMBERS_TABLE = "CREATE TABLE " + TABLE_FAVOURITE_NUMBERS + " ( " + FAV_NUMBER_KEY_ID + " INTEGER, " + FAV_NUMBER_KEY_CONTACTNAME + " TEXT, " + FAV_NUMBER_KEY_CONTACTNUMBER + " TEXT " + ")";
         String CREATE_FAVOURITEPLACES_TABLE = "CREATE TABLE " + TABLE_FAVOURITE_PLACES + " ( " + FAV_PLACE_KEY_ID + " INTEGER, " + FAV_PLACE_KEY_PLACENAME + " TEXT, " + FAV_PLACE_KEY_PLACEADDRESS + " TEXT " + ")";
 
@@ -72,27 +74,29 @@ public class DBHandler extends SQLiteOpenHelper {
     public void addNewVoiceNote(VoiceNote voiceNote) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(VOICENOTE_KEY_ID, voiceNote.getId());
+        values.put(VOICENOTE_KEY_DATE, voiceNote.getDate());
+        Log.i("add date",  voiceNote.getDate());
         values.put(VOICENOTE_KEY_TITLE_DIRECTORY, voiceNote.getTitleDirectory()); // Voice note title 
+        Log.i("add titledir",  voiceNote.getTitleDirectory());
         values.put(VOICENOTE_KEY_CONTENT_DIRECTORY, voiceNote.getContentDirectory()); // Voice note content 
+        Log.i("add contentDir",  voiceNote.getContentDirectory());
         // inserting a row 
         sqLiteDatabase.insert(TABLE_VOICE_NOTES, null, values);
         sqLiteDatabase.close(); // Closing database connection 
     }
 
-    public VoiceNote getVoiceNote(int id) {
+    public VoiceNote getVoiceNote(String date) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query(TABLE_VOICE_NOTES, new String[]{VOICENOTE_KEY_ID, VOICENOTE_KEY_TITLE_DIRECTORY, VOICENOTE_KEY_CONTENT_DIRECTORY}, VOICENOTE_KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor = sqLiteDatabase.query(TABLE_VOICE_NOTES, new String[]{VOICENOTE_KEY_DATE, VOICENOTE_KEY_TITLE_DIRECTORY, VOICENOTE_KEY_CONTENT_DIRECTORY}, VOICENOTE_KEY_DATE + "=?", new String[]{String.valueOf(date)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
-        VoiceNote voiceNote = new VoiceNote(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+        VoiceNote voiceNote = new VoiceNote(cursor.getString(0), cursor.getString(1), cursor.getString(2));
         return voiceNote;
     }
 
     public void deleteVoiceNote(VoiceNote voiceNote) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.delete(TABLE_VOICE_NOTES, VOICENOTE_KEY_ID + "=?", new String[]{String.valueOf(voiceNote.getId())});
-        sqLiteDatabase.execSQL("UPDATE " + TABLE_VOICE_NOTES + " SET id = id - 1" + " WHERE id > " + voiceNote.getId());
+        sqLiteDatabase.delete(TABLE_VOICE_NOTES, VOICENOTE_KEY_DATE + "=?", new String[]{String.valueOf(voiceNote.getDate())});
         sqLiteDatabase.close();
     }
 
@@ -111,7 +115,7 @@ public class DBHandler extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                VoiceNote voiceNote = new VoiceNote(Integer.parseInt(cursor.getString(0)),cursor.getString(1),cursor.getString(2));
+                VoiceNote voiceNote = new VoiceNote(cursor.getString(0),cursor.getString(1),cursor.getString(2));
                 // Adding voice note to list
                 voiceNotesList.add(voiceNote);
             } while (cursor.moveToNext());

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import mobileeye.mobileeye.MenuReader;
 import mobileeye.mobileeye.OnSwipeTouchListener;
 import mobileeye.mobileeye.R;
@@ -18,9 +20,10 @@ public class ListeningNoteActivity extends AppCompatActivity implements ReaderLi
     private DBHandler dbHandler;
     private MenuReader menuReader;
     private Player player;
-    int currentId = 0;
+    int currentId = -1;
     int notesCount = 0;
     private String noNotes = "Brak notatek";
+    private ArrayList<VoiceNote> voiceNotesList = new ArrayList<>();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -55,8 +58,10 @@ public class ListeningNoteActivity extends AppCompatActivity implements ReaderLi
         dbHandler = MainActivity.dbHandler;
         menuReader = new MenuReader(getApplicationContext());
         player = new Player();
-        currentId = 0;
+        currentId = -1;
 
+
+        voiceNotesList = dbHandler.getAllVoiceNotes();
         notesCount = dbHandler.getVoiceNotesCount();
         final Handler handler = new Handler();
         if(notesCount == 0){
@@ -78,32 +83,31 @@ public class ListeningNoteActivity extends AppCompatActivity implements ReaderLi
     private void listenToNextNoteTitle(){
 
         currentId++;
-        if(currentId > notesCount){
-            currentId = 1;
+        if(currentId >= voiceNotesList.size()){
+            currentId = 0;
         }
 
         Log.i("list count next", Integer.toString(dbHandler.getVoiceNotesCount()));
         Log.i("list id ", Integer.toString(currentId));
-        Log.i("list title dir next", dbHandler.getVoiceNote(currentId).getTitleDirectory());
-        player.startPlaying(dbHandler.getVoiceNote(currentId).getTitleDirectory());
+        player.startPlaying(dbHandler.getVoiceNote(voiceNotesList.get(currentId).getDate()).getTitleDirectory());
     }
 
 
     private void listenToPrevNoteTitle(){
 
         currentId--;
-        if(currentId < 1){
-            currentId = notesCount;
+        if(currentId < 0){
+            currentId = voiceNotesList.size() - 1;
         }
 
         Log.i("list count", Integer.toString(dbHandler.getVoiceNotesCount()));
-        Log.i("list title dir", dbHandler.getVoiceNote(currentId).getTitleDirectory());
-        player.startPlaying(dbHandler.getVoiceNote(currentId).getTitleDirectory());
+
+        player.startPlaying(dbHandler.getVoiceNote(voiceNotesList.get(currentId).getDate()).getTitleDirectory());
     }
 
     private void listenToNote(){
-        player.startPlaying(dbHandler.getVoiceNote(currentId).getContentDirectory());
-        Log.i("list note dir", dbHandler.getVoiceNote(currentId).getContentDirectory());
+        player.startPlaying(dbHandler.getVoiceNote(voiceNotesList.get(currentId).getDate()).getContentDirectory());
+        Log.i("list note dir", dbHandler.getVoiceNote(voiceNotesList.get(currentId).getDate()).getContentDirectory());
     }
 
 

@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import mobileeye.mobileeye.FavouriteNumber;
+import mobileeye.mobileeye.FavouriteNumbers.FavouriteNumber;
 import mobileeye.mobileeye.FavouritePlace;
 import mobileeye.mobileeye.R;
 

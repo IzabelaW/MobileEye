@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Studia\zespolowe\mobileeye.iml" filepath="D:\Studia\zespolowe\mobileeye.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mobileeye.iml" filepath="$PROJECT_DIR$/mobileeye.iml" />
       <module fileurl="file://$PROJECT_DIR$/zespolowe.iml" filepath="$PROJECT_DIR$/zespolowe.iml" />
     </modules>
   </component>

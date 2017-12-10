@@ -7,11 +7,6 @@
     tools:context=".VoiceNotes.AddingNewNoteActivity"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/dodaj" />
-
 
     <TextView
         android:id="@+id/addingNewNoteInfoTextView"
@@ -20,6 +15,7 @@
         android:gravity="center"
         android:layout_weight="1"
         android:text="Tryb: dodawanie notatki"
+        android:background="@drawable/dodaj"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp" />

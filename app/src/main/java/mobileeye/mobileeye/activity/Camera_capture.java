@@ -1,10 +1,5 @@
 package mobileeye.mobileeye.activity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import mobileeye.mobileeye.R;
-import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -14,7 +9,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
+import java.io.IOException;
+
+import mobileeye.mobileeye.R;
 
 public class Camera_capture extends Activity implements SurfaceHolder.Callback {
 
