@@ -36,13 +36,16 @@ public class Images {
                         break;
             }
         }
-
-
     }
+
     public static void setCurrentMenu(int menu){
             current_menu=menu;
            // setNextImg(0,textView,context);
-        }
+    }
+
+    public static int getCurrentMenu() {
+        return current_menu;
+    }
 
 
 }

@@ -42,6 +42,8 @@ import mobileeye.mobileeye.FavouritePlace;
 import mobileeye.mobileeye.MenuReader;
 import mobileeye.mobileeye.R;
 import mobileeye.mobileeye.ReaderListener;
+import mobileeye.mobileeye.activity.Constants;
+import mobileeye.mobileeye.activity.Images;
 import mobileeye.mobileeye.activity.MainActivity;
 import mobileeye.mobileeye.activity.MenuActivity;
 
@@ -155,6 +157,7 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        //googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
     }
 
     @Override
@@ -381,6 +384,7 @@ public class NavigationActivity extends AppCompatActivity implements ReaderListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Images.setCurrentMenu(Constants.MAIN_MENU);
         unregisterReceiver(locationReceiver);
         Log.d("RECEIVER","UNREGISTERED");
 
