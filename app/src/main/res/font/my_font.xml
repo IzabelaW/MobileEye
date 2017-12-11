@@ -2,8 +2,8 @@
 <font-family xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
                  xmlns:app="http://schemas.android.com/apk/res-auto">
-        <font android:fontStyle="normal" android:fontWeight="400" android:font="@font/steelfish_outline1"
-                app:fontStyle="normal" app:fontWeight="400" app:font="@font/steelfish_outline1"/>
-        <font android:fontStyle="italic" android:fontWeight="400" android:font="@font/steelfish_outline1"
-                app:fontStyle="italic" app:fontWeight="400" app:font="@font/steelfish_outline1" />
+        <font android:fontStyle="normal" android:fontWeight="400" android:font="@font/bungee"
+                app:fontStyle="normal" app:fontWeight="400" app:font="@font/bungee"/>
+        <font android:fontStyle="italic" android:fontWeight="400" android:font="@font/bungee"
+                app:fontStyle="italic" app:fontWeight="400" app:font="@font/bungee" />
 </font-family>

@@ -39,7 +39,7 @@ public class ListeningNoteActivity extends AppCompatActivity implements ReaderLi
         infoTextView.setOnTouchListener(new OnSwipeTouchListener(ListeningNoteActivity.this){
 
             public void onSwipeTop() {
-                Images.setCurrentMenu(Constants.MAIN_MENU);
+                Images.setCurrentMenu(Constants.VOICE_NOTES);
                 finish();
             }
             public void onSwipeRight() {
@@ -116,6 +116,14 @@ public class ListeningNoteActivity extends AppCompatActivity implements ReaderLi
 
     @Override
     public void onReadingCompleted() {
+       // Images.setCurrentMenu(Constants.VOICE_NOTES);
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        Images.setCurrentMenu(Constants.VOICE_NOTES);
+        super.onBackPressed();
+    }
 }
+

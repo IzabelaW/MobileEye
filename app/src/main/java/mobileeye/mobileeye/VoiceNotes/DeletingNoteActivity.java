@@ -37,7 +37,7 @@ public class DeletingNoteActivity extends AppCompatActivity implements ReaderLis
         infoTextView.setOnTouchListener(new OnSwipeTouchListener(DeletingNoteActivity.this){
 
             public void onSwipeTop() {
-                Images.setCurrentMenu(Constants.MAIN_MENU);
+                Images.setCurrentMenu(Constants.VOICE_NOTES);
                 finish();
             }
             public void onSwipeRight() {
@@ -116,6 +116,13 @@ public class DeletingNoteActivity extends AppCompatActivity implements ReaderLis
             notesCount = FAKE_NOTES_NUMB;
             menuReader.read(noNotes, DeletingNoteActivity.this);
         }
+        Images.setCurrentMenu(Constants.VOICE_NOTES);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Images.setCurrentMenu(Constants.VOICE_NOTES);
+        super.onBackPressed();
     }
 }

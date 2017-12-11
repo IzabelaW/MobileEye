@@ -25,11 +25,12 @@ public class Images {
                                             break;
                 case Constants.VOICE_NOTES: textView.setBackgroundDrawable(context.getResources().getDrawable(drawablesVoiceNotes[option]));
                     break;
-                case Constants.NAVIGATION:  textView.setBackgroundResource(0);
-                textView.setBackgroundColor(0x71c837);
+                case Constants.NAVIGATION:  textView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.nawigacja));
+
                     break;
                 case Constants.OBJECT_RECOGNITION: break;
                 case Constants.FAVOURITE_NUMBERS:
+                    textView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.numery));
                     break;
                 case Constants.GUIDE:
                         break;

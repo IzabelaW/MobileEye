@@ -52,7 +52,7 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
 
 
             public void onSwipeTop() {
-                Images.setCurrentMenu(Constants.MAIN_MENU);
+                Images.setCurrentMenu(Constants.VOICE_NOTES);
                 finish();
             }
             public void onSwipeRight() {
@@ -111,6 +111,7 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
                 break;
         }
         if (!permissionToRecordAccepted ) {
+            Images.setCurrentMenu(Constants.VOICE_NOTES);
             finish();
         }
 
@@ -155,7 +156,7 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
                 menuReader.read(recordingCompleted);
             }
         }, 100);
-
+        Images.setCurrentMenu(Constants.VOICE_NOTES);
         finish();
     }
 
@@ -195,5 +196,11 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
 
     public enum NotePart{
         TITLE, NOTE_BODY;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Images.setCurrentMenu(Constants.VOICE_NOTES);
+        super.onBackPressed();
     }
 }
