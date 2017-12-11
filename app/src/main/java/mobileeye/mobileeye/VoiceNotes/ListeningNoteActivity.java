@@ -13,6 +13,8 @@ import mobileeye.mobileeye.MenuReader;
 import mobileeye.mobileeye.OnSwipeTouchListener;
 import mobileeye.mobileeye.R;
 import mobileeye.mobileeye.ReaderListener;
+import mobileeye.mobileeye.activity.Constants;
+import mobileeye.mobileeye.activity.Images;
 import mobileeye.mobileeye.activity.MainActivity;
 import mobileeye.mobileeye.database.DBHandler;
 
@@ -37,6 +39,7 @@ public class ListeningNoteActivity extends AppCompatActivity implements ReaderLi
         infoTextView.setOnTouchListener(new OnSwipeTouchListener(ListeningNoteActivity.this){
 
             public void onSwipeTop() {
+                Images.setCurrentMenu(Constants.MAIN_MENU);
                 finish();
             }
             public void onSwipeRight() {

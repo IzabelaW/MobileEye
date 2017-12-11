@@ -17,6 +17,8 @@ import mobileeye.mobileeye.MenuReader;
 import mobileeye.mobileeye.OnSwipeTouchListener;
 import mobileeye.mobileeye.R;
 import mobileeye.mobileeye.ReaderListener;
+import mobileeye.mobileeye.activity.Constants;
+import mobileeye.mobileeye.activity.Images;
 import mobileeye.mobileeye.activity.MainActivity;
 import mobileeye.mobileeye.database.DBHandler;
 
@@ -50,6 +52,7 @@ public class AddingNewNoteActivity extends AppCompatActivity implements  ReaderL
 
 
             public void onSwipeTop() {
+                Images.setCurrentMenu(Constants.MAIN_MENU);
                 finish();
             }
             public void onSwipeRight() {

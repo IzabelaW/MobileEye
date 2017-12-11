@@ -44,6 +44,7 @@ public class FavouriteNumbersActivity extends AppCompatActivity implements Reade
         infoTextView.setOnTouchListener(new OnSwipeTouchListener(FavouriteNumbersActivity.this) {
 
             public void onSwipeTop() {
+                Images.setCurrentMenu(Constants.MAIN_MENU);
                 finish();
             }
 
