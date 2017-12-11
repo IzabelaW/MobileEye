@@ -35,13 +35,28 @@ import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import mobileeye.mobileeye.MenuReader;
+import mobileeye.mobileeye.Navigation.NavigationActivity;
 import mobileeye.mobileeye.R;
 
 /**
@@ -176,6 +191,9 @@ public class ObjectRecognitionActivity extends AppCompatActivity {
     Account mAccount;
     ArrayList<EntityAnnotation> lista;
     ArrayList<EntityAnnotation> listaTekst;
+    String tekst;
+    String words;
+    String end;
 
 
     // PROSBA O DOSTEP DO API
@@ -258,7 +276,7 @@ public class ObjectRecognitionActivity extends AppCompatActivity {
             }
 
             protected void onPostExecute(String result) {
-                String tekst = "";
+                tekst = words = end = "";
 
                 if(listaTekst == null && lista == null) {
                     tekst = getString(R.string.badConnection);
@@ -267,8 +285,11 @@ public class ObjectRecognitionActivity extends AppCompatActivity {
                     tekst = "Zeskanowano: ";
 
                     for(int i = 0; i < 2; i++) {
-                        tekst += lista.get(i).getDescription() + "\n";
+                        words += lista.get(i).getDescription() + ". ";
                     }
+
+                    TranslateTask translateTask = new TranslateTask();
+                    translateTask.execute(words);
                 }
 
                 if(listaTekst != null) {
@@ -276,9 +297,7 @@ public class ObjectRecognitionActivity extends AppCompatActivity {
                     tekst += listaTekst.get(0).getDescription() + "\n";
                 }
 
-                tekst += "\nKliknij, by ponowić skanowanie.";
-
-                setViewText(tekst);
+                end = "\nKliknij, by ponowić skanowanie.";
             }
         }.execute();
     }
@@ -388,6 +407,41 @@ public class ObjectRecognitionActivity extends AppCompatActivity {
     public void onBackPressed() {
         Images.setCurrentMenu(Constants.MAIN_MENU);
         super.onBackPressed();
+    }
 
+    public class TranslateTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+            String data = translate(url[0]);
+
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            setViewText(tekst + result + end);
+        }
+
+        private String translate(String text) {
+            String translated = null;
+            try {
+                String query = URLEncoder.encode(text, "UTF-8");
+                String langpair = URLEncoder.encode("EN|PL", "UTF-8");
+                String url = "http://mymemory.translated.net/api/get?q="+query+"&langpair="+langpair;
+                HttpClient hc = new DefaultHttpClient();
+                HttpGet hg = new HttpGet(url);
+                HttpResponse hr = hc.execute(hg);
+                if(hr.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                    JSONObject response = new JSONObject(EntityUtils.toString(hr.getEntity()));
+                    translated = response.getJSONObject("responseData").getString("translatedText");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return translated;
+        }
     }
 }
