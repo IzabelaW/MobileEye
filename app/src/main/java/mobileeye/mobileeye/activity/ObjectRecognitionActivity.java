@@ -272,7 +272,7 @@ public class ObjectRecognitionActivity extends AppCompatActivity {
                 }
 
                 if(listaTekst != null) {
-                    tekst += "Rozpoznano tekst: ";
+                    tekst = "Rozpoznano tekst: ";
                     tekst += listaTekst.get(0).getDescription() + "\n";
                 }
 

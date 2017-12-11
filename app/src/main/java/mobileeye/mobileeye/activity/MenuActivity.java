@@ -132,8 +132,15 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
     @Override
     public void onBackPressed() {
         Images.setCurrentMenu(Constants.MAIN_MENU);
-        super.onBackPressed();
 
+        if(Images.getCurrentMenu() == Constants.MAIN_MENU) {
+            Intent data = new Intent();
+            data.putExtra("selectedOption", -1);
+            setResult(RESULT_OK, data);
+            finish();
+        }
+
+        super.onBackPressed();
     }
 
     public void nextOptionClick(View view) {
