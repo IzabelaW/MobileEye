@@ -1,49 +1,48 @@
 
-        package mobileeye.mobileeye.activity;
+package mobileeye.mobileeye.activity;
 
-        import android.Manifest;
-        import android.accounts.Account;
-        import android.accounts.AccountManager;
-        import android.content.Intent;
-        import android.content.pm.PackageManager;
-        import android.graphics.Bitmap;
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.os.Handler;
-        import android.provider.MediaStore;
-        import android.support.annotation.NonNull;
-        import android.support.v4.app.ActivityCompat;
-        import android.support.v7.app.AppCompatActivity;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.Manifest;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.google.android.gms.auth.GoogleAuthUtil;
-        import com.google.android.gms.common.AccountPicker;
-        import com.google.api.client.extensions.android.http.AndroidHttp;
-        import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-        import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-        import com.google.api.client.http.HttpTransport;
-        import com.google.api.client.json.JsonFactory;
-        import com.google.api.client.json.gson.GsonFactory;
-        import com.google.api.services.vision.v1.Vision;
-        import com.google.api.services.vision.v1.model.AnnotateImageRequest;
-        import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
-        import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
-        import com.google.api.services.vision.v1.model.EntityAnnotation;
-        import com.google.api.services.vision.v1.model.Feature;
-        import com.google.api.services.vision.v1.model.Image;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.common.AccountPicker;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.vision.v1.Vision;
+import com.google.api.services.vision.v1.model.AnnotateImageRequest;
+import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
+import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
+import com.google.api.services.vision.v1.model.EntityAnnotation;
+import com.google.api.services.vision.v1.model.Feature;
+import com.google.api.services.vision.v1.model.Image;
 
-        import java.io.ByteArrayOutputStream;
-        import java.io.IOException;
-        import java.util.ArrayList;
-        import java.util.List;
-        import java.util.Locale;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-        import mobileeye.mobileeye.GetTokenTask;
-        import mobileeye.mobileeye.MenuReader;
-        import mobileeye.mobileeye.R;
+import mobileeye.mobileeye.MenuReader;
+import mobileeye.mobileeye.R;
 
 /**
  * Created by izabelawojciak on 06.11.2017.
