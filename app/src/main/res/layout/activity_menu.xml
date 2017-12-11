@@ -10,14 +10,14 @@
 
 
     <TextView
-        android:background="@drawable/notatki_glosowe"
         android:id="@+id/optionTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:layout_weight="1"
+        android:background="@drawable/notatki_glosowe"
+        android:fontFamily="@font/my_font"
+        android:gravity="center"
         android:text="Displayed text"
-        android:fontFamily="@font/steelfish_outline1"
-        android:textSize="50sp"/>
+        android:textSize="50sp" />
 
 </LinearLayout>

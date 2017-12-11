@@ -1,6 +1,7 @@
 package mobileeye.mobileeye.FavouriteNumbers;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -87,6 +88,8 @@ public class FavouriteNumbersActivity extends AppCompatActivity implements Reade
                 listenToNextContactName();
             }
         }, 500);
+
+        Images.setNextImg( 1, infoTextView, this);
 
     }
 

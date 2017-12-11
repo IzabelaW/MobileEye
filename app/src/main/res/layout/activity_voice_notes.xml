@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_weight="1"
-        android:fontFamily="@font/steelfish_outline1"
+        android:fontFamily="@font/my_font"
         android:textSize="50sp" />
 
 </android.support.constraint.ConstraintLayout>
