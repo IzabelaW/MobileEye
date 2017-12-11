@@ -12,6 +12,7 @@ public final class Constants {
     public static final int MAIN_MENU=13;
     public static final int CONFIGURATION=3;
     public static final int FAVOURITE_NUMBERS = 4;
+    public static final int GUIDE = 5;
 
     private Constants(){}
 }

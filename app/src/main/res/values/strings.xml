@@ -1,10 +1,22 @@
 <resources>
-<string name="app_name">MobileEye</string>
-<string name="title_activity_voice_notes">VoiceNotesActivity</string>
-<string name="serwerResponse">Trwa skanowanie</string>
-<string name="startPhoto">Kliknij, aby rozpocząć skanowanie.</string>
-<string name="badConnection">Nie rozpoznano zdjęcia, proszę ponów próbę lub sprawdź swoje połączenie internetowe.</string>
-<string name="newPhoto">Kliknij aby zrobić zdjęcie</string>
-<string name="makePhoto">Kliknij aby rozpocząć robienie zdjęcia</string>
-<string name="google_maps_key">AIzaSyBDVziRsqpNrkqKBTv5ASSaOIke9fQ9yk8</string>
+    <string name="app_name">MobileEye</string>
+    <string name="title_activity_voice_notes">VoiceNotesActivity</string>
+    <string name="serwerResponse">Trwa skanowanie</string>
+    <string name="startPhoto">Kliknij, aby rozpocząć skanowanie.</string>
+    <string name="badConnection">Nie rozpoznano zdjęcia, proszę ponów próbę lub sprawdź swoje połączenie internetowe.</string>
+    <string name="newPhoto">Kliknij aby zrobić zdjęcie</string>
+    <string name="makePhoto">Kliknij aby rozpocząć robienie zdjęcia</string>
+    <string name="google_maps_key">AIzaSyBDVziRsqpNrkqKBTv5ASSaOIke9fQ9yk8</string>
+    <string name="start">Start/Stop Streaming</string>
+    <string name="flash">Flash</string>
+    <string name="camera">Camera</string>
+    <string name="video">Video Settings</string>
+    <string name="save">OK</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="uri">URI</string>
+    <string name="password_hint">admin</string>
+    <string name="username_hint">admin</string>
+    <string name="default_bitrate">0 kbps</string>
+    <string name="default_stream">rtsp://192.168.0.220:1935/live/myStream</string>
 </resources>

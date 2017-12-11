@@ -16,6 +16,7 @@ import static mobileeye.mobileeye.activity.Constants.FAVOURITE_NUMBERS;
 import static mobileeye.mobileeye.activity.Constants.NAVIGATION;
 import static mobileeye.mobileeye.activity.Constants.OBJECT_RECOGNITION;
 import static mobileeye.mobileeye.activity.Constants.VOICE_NOTES;
+import static mobileeye.mobileeye.activity.Constants.GUIDE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int SUB_ACTIVITY = 2;
 
-    private String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja",  "Panel konfiguracyjny \n osoby widomej", "Ulubione numery"};
+    private String[] optionList = {"Notatki głosowe", "Rozpoznawanie obiektów i czytanie tekstu", "Nawigacja",  "Panel konfiguracyjny \n osoby widomej", "Ulubione numery", "Tryb przewodnika"};
 
     private String[] selectedOptionInfoList = {"Wybrano opcję: notatki głosowe", "Wybrano opcję: rozpoznawanie obiektów i czytanie tekstu",
-            "Wybrano opcję: nawigacja",  "Wybrano opcję: panel konfiguracyjny osoby widomej ", "Wybrano opcję: ulubione numery"};
+            "Wybrano opcję: nawigacja",  "Wybrano opcję: panel konfiguracyjny osoby widomej ", "Wybrano opcję: ulubione numery", "Wybrano opcję: tryb przewodnika"};
 
     public static DBHandler dbHandler;
 
@@ -62,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
                 case FAVOURITE_NUMBERS:
                     Intent favouriteNumbersIntent = new Intent(this, FavouriteNumbersActivity.class);
                     startActivityForResult(favouriteNumbersIntent, SUB_ACTIVITY);
+                    break;
+                case GUIDE:
+                    Intent guideIntent = new Intent(this, GuideActivity.class);
+                    startActivityForResult(guideIntent, SUB_ACTIVITY);
                     break;
                 default:
                     Intent voiceNotesIntent1 = new Intent(this, VoiceNotesActivity.class);
