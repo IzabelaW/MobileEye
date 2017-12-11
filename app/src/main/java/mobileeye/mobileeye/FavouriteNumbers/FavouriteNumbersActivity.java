@@ -19,6 +19,8 @@ import mobileeye.mobileeye.MenuReader;
 import mobileeye.mobileeye.OnSwipeTouchListener;
 import mobileeye.mobileeye.R;
 import mobileeye.mobileeye.ReaderListener;
+import mobileeye.mobileeye.activity.Constants;
+import mobileeye.mobileeye.activity.Images;
 import mobileeye.mobileeye.activity.MainActivity;
 import mobileeye.mobileeye.database.DBHandler;
 
@@ -135,5 +137,11 @@ public class FavouriteNumbersActivity extends AppCompatActivity implements Reade
     @Override
     public void onReadingCompleted() {
         finish();
+    }
+    @Override
+    public void onBackPressed() {
+        Images.setCurrentMenu(Constants.MAIN_MENU);
+        super.onBackPressed();
+
     }
 }

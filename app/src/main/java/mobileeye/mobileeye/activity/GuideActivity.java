@@ -346,4 +346,11 @@ public class GuideActivity extends AppCompatActivity implements
     public void surfaceDestroyed(SurfaceHolder holder) {
         mClient.stopStream();
     }
+
+    @Override
+    public void onBackPressed() {
+        Images.setCurrentMenu(Constants.MAIN_MENU);
+        super.onBackPressed();
+
+    }
 }

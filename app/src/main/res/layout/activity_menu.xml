@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="mobileeye.mobileeye.activity.MenuActivity"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
 
     <TextView
@@ -17,6 +17,7 @@
         android:gravity="center"
         android:layout_weight="1"
         android:text="Displayed text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:fontFamily="@font/steelfish_outline1"
+        android:textSize="50sp"/>
 
 </LinearLayout>

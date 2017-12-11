@@ -16,8 +16,7 @@
         android:layout_weight="1"
         android:text="Tryb: dodawanie notatki"
         android:background="@drawable/dodaj"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp" />
+        android:fontFamily="@font/steelfish_outline1"
+        android:textSize="50sp" />
 
 </LinearLayout>

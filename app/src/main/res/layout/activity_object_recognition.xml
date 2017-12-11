@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         android:text="@string/makePhoto"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:fontFamily="@font/steelfish_outline1"
+        android:textSize="50sp" />
 
 
 </LinearLayout>

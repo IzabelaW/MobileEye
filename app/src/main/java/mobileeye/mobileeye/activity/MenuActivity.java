@@ -46,6 +46,7 @@ public class MenuActivity extends AppCompatActivity implements ReaderListener{
         optionTextView.setOnTouchListener(new OnSwipeTouchListener(MenuActivity.this){
 
             public void onSwipeTop() {
+                Images.setCurrentMenu(Constants.MAIN_MENU);
                 Intent data = new Intent();
                 data.putExtra("selectedOption", CANCEL);
                 setResult(RESULT_OK, data);

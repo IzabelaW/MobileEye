@@ -384,4 +384,10 @@ public class ObjectRecognitionActivity extends AppCompatActivity {
         accessToken = token;
         dispatchTakePictureIntent();
     }
+    @Override
+    public void onBackPressed() {
+        Images.setCurrentMenu(Constants.MAIN_MENU);
+        super.onBackPressed();
+
+    }
 }

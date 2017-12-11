@@ -11,7 +11,7 @@ import mobileeye.mobileeye.R;
 
 public class Images {
 
-    private static int[] drawablesMainMenu = {R.drawable.notatki_glosowe, R.drawable.czytanie, R.drawable.nawigacja,R.drawable.ustawienia};
+    private static int[] drawablesMainMenu = {R.drawable.notatki_glosowe, R.drawable.czytanie, R.drawable.nawigacja,R.drawable.ustawienia,R.drawable.numery,R.drawable.guide};
     private static int[] drawablesVoiceNotes = {R.drawable.dodaj, R.drawable.usun, R.drawable.przegladaj};
 
     private static int current_menu=Constants.MAIN_MENU;
@@ -26,9 +26,13 @@ public class Images {
                 case Constants.VOICE_NOTES: textView.setBackgroundDrawable(context.getResources().getDrawable(drawablesVoiceNotes[option]));
                     break;
                 case Constants.NAVIGATION:  textView.setBackgroundResource(0);
-
+                textView.setBackgroundColor(0x71c837);
                     break;
                 case Constants.OBJECT_RECOGNITION: break;
+                case Constants.FAVOURITE_NUMBERS:
+                    break;
+                case Constants.GUIDE:
+                        break;
             }
         }
 
